@@ -9,7 +9,7 @@
 遵循 [Agent Skills 规范](https://agentskills.io/specification)，EastAlmanac 是**一个 skill**，通过渐进式披露按需加载各主题的解读框架：
 
 ```
-yifortune/                          ← 唯一的 skill 目录
+eastalmanac/                        ← 唯一的 skill 目录
 ├── SKILL.md                        ← 入口：路由表 + 全局原则（触发时加载）
 ├── scripts/
 │   └── bridge.py                   ← 唯一的脚本：本地回环桥接（纯标准库 Python，零依赖）
@@ -75,18 +75,18 @@ npx skills update                                               # 之后一键�
 
 ### 方式 B —— 手动复制
 
-把 `yifortune` 目录复制到你的 AI 客户端对应的 skills 目录：
+把 `eastalmanac` 目录复制到你的 AI 客户端对应的 skills 目录：
 
 ### ZCode
 
 ```bash
-cp -r yifortune ~/.zcode/skills/
+cp -r eastalmanac ~/.zcode/skills/
 ```
 
 ### Claude Code / 其他 ~/.agents 客户端
 
 ```bash
-cp -r yifortune ~/.agents/skills/
+cp -r eastalmanac ~/.agents/skills/
 ```
 
 ## 验证安装
@@ -131,6 +131,10 @@ EastAlmanac 将底层核心计算模型、权重表与天文算法完全公开�
 ## Changelog
 
 遵循 [语义化版本](https://semver.org/lang/zh-CN/)：MAJOR（不兼容变更）/ MINOR（向后兼容新增）/ PATCH（修 bug）。
+
+### 2.0.0 — 2026-10-12
+
+- **skill 标识符改名 `yifortune` → `eastalmanac`**：目录、`name` 字段与全部引用路径同步更新；旧版安装需重装并删除旧的 `yifortune` 目录。
 
 ### 1.2.0 — 2026-10-12
 

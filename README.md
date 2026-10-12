@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](#changelog)
 
 **English** · **[简体中文](README.zh-CN.md)**
 
@@ -25,7 +25,7 @@ It covers **15 topics**: 八字 (BaZi), 西方占星 (Western astrology), 易经
 
 | ✅ This repo provides | ❌ It does NOT include |
 | --------------------- | --------------------- |
-| The `yifortune` skill (`SKILL.md` + `references/` + `scripts/bridge.py`) | Remote backend servers or databases |
+| The `eastalmanac` skill (`SKILL.md` + `references/` + `scripts/bridge.py`) | Remote backend servers or databases |
 | Reading frameworks for 15 fortune-telling topics | API keys, paid paywalls, or monthly quotas |
 | Local loopback bridge script (`scripts/bridge.py`) | Uncontrolled cloud tracking of personal birth data |
 | Plain-language output rules (the AI serves laypeople, not masters) | |
@@ -56,25 +56,25 @@ npx skills update                                               # update later
 
 ### Option B — Manual install (Claude Desktop or any client)
 
-Copy the `yifortune` skill directory into your client's skills folder.
+Copy the `eastalmanac` skill directory into your client's skills folder.
 
 **Claude Code / other `~/.agents`-compatible clients:**
 
 ```bash
 git clone https://github.com/william0wang/eastalmanac.git
-cp -r eastalmanac/skills/yifortune ~/.agents/skills/
+cp -r eastalmanac/skills/eastalmanac ~/.agents/skills/
 ```
 
 **ZCode:**
 
 ```bash
 git clone https://github.com/william0wang/eastalmanac.git
-cp -r eastalmanac/skills/yifortune ~/.zcode/skills/
+cp -r eastalmanac/skills/eastalmanac ~/.zcode/skills/
 ```
 
 **Claude Desktop:** place the skill under `~/Library/Application Support/Claude/skills/` (macOS) or `%APPDATA%\Claude\skills\` (Windows), then restart Claude Desktop.
 
-After installing, simply mention the skill in your conversation — e.g. "Use the yifortune skill to read my BaZi chart."
+After installing, simply mention the skill in your conversation — e.g. "Use the eastalmanac skill to read my BaZi chart."
 
 ---
 
@@ -97,7 +97,7 @@ Try these prompts in your client:
 Following the [Agent Skills spec](https://agentskills.io/specification), EastAlmanac is **one skill** that loads content on demand:
 
 ```
-skills/yifortune/
+skills/eastalmanac/
 ├── SKILL.md                  ← entry: routing table + global principles (loaded on trigger)
 ├── scripts/
 │   └── bridge.py             ← the only script: zero-dependency (pure stdlib Python) loopback bridge
@@ -167,7 +167,7 @@ Unlike black-box divination and astrology platforms, EastAlmanac fully publishes
 
 | Symptom | Cause / Fix |
 | ------- | ----------- |
-| Skill doesn't activate | Confirm the `yifortune` directory is in your client's skills folder and matches the `name: yifortune` in `SKILL.md` frontmatter. Restart the client. |
+| Skill doesn't activate | Confirm the `eastalmanac` directory is in your client's skills folder and matches the `name: eastalmanac` in `SKILL.md` frontmatter. Restart the client. |
 | Browser does not open automatically | Check the terminal output: the bridge displays the URL. Copy and open `https://eastalmanac.com/...` manually in any browser. |
 | Bridge timeout (5 minutes) | If you completed the reading on the web page, click "复制提示词" and paste the text directly into the chat prompt. |
 | Astrology page needs lat/lon/tz | Resolve the **birthplace** to coordinates and UTC offset yourself (mind DST), then run `python3 scripts/bridge.py bridge --date=... --time=... --lat=... --lon=... --tz=...`. |
@@ -179,6 +179,10 @@ Unlike black-box divination and astrology platforms, EastAlmanac fully publishes
 Contributions are welcome — especially corrections to terminology, new topic references, or translations. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Changelog
+
+### 2.0.0 — 2026-10-12
+
+- **BREAKING: skill identifier renamed `yifortune` → `eastalmanac`** — the SKILL.md `name`, the `skills/eastalmanac/` directory, and every command/path reference now use the EastAlmanac name end to end. If you installed an earlier version, reinstall (`npx skills add william0wang/eastalmanac`) and delete the old `yifortune` skill folder; the trigger phrase becomes "use the eastalmanac skill".
 
 ### 1.2.0 — 2026-10-12
 

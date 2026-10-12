@@ -1,10 +1,10 @@
 ---
-name: yifortune
+name: eastalmanac
 description: "Chinese fortune-telling and astrology assistant covering ALL EastAlmanac readings: 八字/命理/算命/四柱/命盘 (BaZi), 星盘/占星/星座 (Western astrology), 起卦/问事/占卦/易经 (I Ching divination), 事业/工作/职业 (career), 财运/投资/理财 (wealth), 感情/婚姻/恋爱/桃花 (love), 健康/养生/体质 (health), 成长/天赋/潜力 (personal growth), 配对/合婚/合适不合适 (compatibility), 今日/本周/本月/今年运势 (period fortune), 姓名/测名/改名 (name analysis), 择日/择吉/选日子 (date selection), 风水/方位/幸运颜色数字 (feng shui), 流年详批/年度运势 (annual reading). Route here for any fortune/destiny/astrology question. Topic-specific reading frameworks live as reference files loaded on demand."
 license: MIT
 compatibility: "Zero-install, zero dependencies: runs on any preinstalled Python 3 (the bridge is pure standard library). Every reading — BaZi, I Ching, and Western astrology — computes client-side in the browser."
 metadata:
-  version: "1.2.0"
+  version: "2.0.0"
   last_updated: "2026-10-12"
   author: "william0wang"
   homepage: "https://github.com/william0wang/eastalmanac"

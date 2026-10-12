@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](#changelog)
 
 **[English](README.md)** · **简体中文**
 
@@ -25,7 +25,7 @@ EastAlmanac 教 AI **怎么解读**命理数据——排盘框架、术语体系
 
 | ✅ 提供 | ❌ 不包含 |
 | ------ | ------ |
-| `yifortune` skill（`SKILL.md` + `references/` + `scripts/bridge.py`） | 远程云端数据库或集中式后端 |
+| `eastalmanac` skill（`SKILL.md` + `references/` + `scripts/bridge.py`） | 远程云端数据库或集中式后端 |
 | 15 个命理主题的解读框架 | API Key、付费墙或每月调用限额 |
 | 本地回环交互桥接脚本（`scripts/bridge.py`） | 收集个人生辰八字的网络追踪 |
 | 白话输出规则（AI 服务普通人，不是命理大师） | |
@@ -56,25 +56,25 @@ npx skills update                                               # 之后一键�
 
 ### 方式 B —— 手动安装（Claude Desktop 或其他客户端）
 
-把 `yifortune` skill 目录复制到客户端的 skills 文件夹。
+把 `eastalmanac` skill 目录复制到客户端的 skills 文件夹。
 
 **Claude Code / 其他兼容 `~/.agents` 的客户端：**
 
 ```bash
 git clone https://github.com/william0wang/eastalmanac.git
-cp -r eastalmanac/skills/yifortune ~/.agents/skills/
+cp -r eastalmanac/skills/eastalmanac ~/.agents/skills/
 ```
 
 **ZCode：**
 
 ```bash
 git clone https://github.com/william0wang/eastalmanac.git
-cp -r eastalmanac/skills/yifortune ~/.zcode/skills/
+cp -r eastalmanac/skills/eastalmanac ~/.zcode/skills/
 ```
 
 **Claude Desktop：** 把 skill 放到 `~/Library/Application Support/Claude/skills/`（macOS）或 `%APPDATA%\Claude\skills\`（Windows），然后重启 Claude Desktop。
 
-安装后直接在对话里提到即可——比如"用 yifortune skill 帮我看个八字"。
+安装后直接在对话里提到即可——比如"用 eastalmanac skill 帮我看个八字"。
 
 ---
 
@@ -97,7 +97,7 @@ cp -r eastalmanac/skills/yifortune ~/.zcode/skills/
 遵循 [Agent Skills 规范](https://agentskills.io/specification)，EastAlmanac 是**一个 skill**，内容按需加载：
 
 ```
-skills/yifortune/
+skills/eastalmanac/
 ├── SKILL.md                  ← 入口：路由表 + 全局原则（触发时加载）
 ├── scripts/
 │   └── bridge.py             ← 唯一的脚本：纯标准库 Python 零依赖回环桥接
@@ -167,7 +167,7 @@ skills/yifortune/
 
 | 症状 | 原因 / 解决 |
 | ---- | ----------- |
-| Skill 不触发 | 确认 `yifortune` 目录在客户端的 skills 文件夹里，且 `SKILL.md` frontmatter 的 `name: yifortune` 一致。重启客户端。 |
+| Skill 不触发 | 确认 `eastalmanac` 目录在客户端的 skills 文件夹里，且 `SKILL.md` frontmatter 的 `name: eastalmanac` 一致。重启客户端。 |
 | 无法自动打开系统浏览器 | 检查终端输出中的 URL，可手动复制并在任意浏览器中打开 `https://eastalmanac.com/...`。 |
 | 等待网页操作超时（5分钟） | 若已在网页完成操作并生成了结果，可直接点击页面上的「复制提示词」并直接粘贴在对话框中。 |
 | 占星页需要经纬度和时区 | 自行把**出生地**换算成经纬度和 UTC 偏移（注意夏令时），再运行 `python3 scripts/bridge.py bridge --date=... --time=... --lat=... --lon=... --tz=...`。 |
@@ -179,6 +179,10 @@ skills/yifortune/
 欢迎贡献——尤其是术语订正、新主题 reference、翻译。规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## Changelog
+
+### 2.0.0 — 2026-10-12
+
+- **BREAKING：skill 标识符由 `yifortune` 改名为 `eastalmanac`**——`SKILL.md` 的 `name`、`skills/eastalmanac/` 目录与所有命令/路径引用全链路统一为 EastAlmanac。已安装旧版本的用户请重新安装（`npx skills add william0wang/eastalmanac`）并删除旧的 `yifortune` skill 目录；对话触发词相应变为"用 eastalmanac skill"。
 
 ### 1.2.0 — 2026-10-12
 

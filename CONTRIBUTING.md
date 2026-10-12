@@ -5,19 +5,19 @@ Thanks for your interest in improving the EastAlmanac skill! This guide covers t
 ## Repository layout
 
 ```
-skills/yifortune/
+skills/eastalmanac/
 ├── SKILL.md              ← entry: routing table + global principles (edit carefully — affects every reading)
 ├── references/           ← per-topic reading frameworks (most contributions land here)
 └── scripts/              ← bridge.py only (pure-stdlib Python loopback bridge)
 ```
 
-The skill follows the [Agent Skills specification](https://agentskills.io/specification). Before contributing, skim the spec's [frontmatter rules](https://agentskills.io/specification) and the design principles in [`SKILL.md`](skills/yifortune/SKILL.md).
+The skill follows the [Agent Skills specification](https://agentskills.io/specification). Before contributing, skim the spec's [frontmatter rules](https://agentskills.io/specification) and the design principles in [`SKILL.md`](skills/eastalmanac/SKILL.md).
 
 ## Ways to contribute
 
 ### Terminology corrections
 
-The single source of truth is [`references/glossary.md`](skills/yifortune/references/glossary.md). If a term is mistranslated, a mapping table is wrong, or a definition is unclear, fix it there — **don't** duplicate the fix in a topic reference.
+The single source of truth is [`references/glossary.md`](skills/eastalmanac/references/glossary.md). If a term is mistranslated, a mapping table is wrong, or a definition is unclear, fix it there — **don't** duplicate the fix in a topic reference.
 
 ### New topic references
 
@@ -28,7 +28,7 @@ Want to add a new reading topic (e.g. 六爻, 紫微斗数, 塔罗)? Open an iss
    - `## Data Source` (EastAlmanac bridge page (`python3 scripts/bridge.py ...`))
    - `## Analysis Framework` (the professional reading structure)
    - `## Output` with **two layers**: inner (命理要点, terms OK) + outer (大白话总结, plain language)
-2. Add a row to the routing table in [`SKILL.md`](skills/yifortune/SKILL.md).
+2. Add a row to the routing table in [`SKILL.md`](skills/eastalmanac/SKILL.md).
 3. Cross-link from related references (e.g. a new `liuyao.md` should point to `glossary.md`).
 
 ### Translations / language improvements
@@ -37,10 +37,10 @@ The skill auto-detects the user's language and replies in kind. If the plain-lan
 
 ### Bug fixes in the bridge script
 
-[`scripts/bridge.py`](skills/yifortune/scripts/bridge.py) must stay pure standard library (no pip dependencies) and work on any preinstalled Python 3. Smoke-test all three actions without opening a browser:
+[`scripts/bridge.py`](skills/eastalmanac/scripts/bridge.py) must stay pure standard library (no pip dependencies) and work on any preinstalled Python 3. Smoke-test all three actions without opening a browser:
 
 ```bash
-BROWSER=/usr/bin/true python3 skills/yifortune/scripts/bridge.py cast --question=test   # then Ctrl-C, or POST to the printed callback URL
+BROWSER=/usr/bin/true python3 skills/eastalmanac/scripts/bridge.py cast --question=test   # then Ctrl-C, or POST to the printed callback URL
 ```
 
 All real calculation happens client-side on `eastalmanac.com` — never add local computation engines to this repo.
@@ -59,7 +59,7 @@ These keep the skill effective and the context window lean:
 
 If you touch `SKILL.md`, validate the frontmatter:
 
-- `name` must be lowercase `yifortune`, matching the directory name
+- `name` must be lowercase `eastalmanac`, matching the directory name
 - `description` ≤ 1024 characters, describes *what* and *when to use*
 - `license` and `compatibility` are present
 - `metadata.version` follows [SemVer](https://semver.org): bump PATCH for fixes, MINOR for new topics, MAJOR for breaking changes

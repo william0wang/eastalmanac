@@ -9,11 +9,11 @@ bridge that opens the tool page and receives the JSON payload via POST back to
 
 ## Layout
 
-- `skills/yifortune/SKILL.md` — skill entry: routing table + global principles
-- `skills/yifortune/references/` — 17 per-topic reading frameworks (loaded on
+- `skills/eastalmanac/SKILL.md` — skill entry: routing table + global principles
+- `skills/eastalmanac/references/` — 17 per-topic reading frameworks (loaded on
   demand); the three data-layer files (`bazi-chart.md`, `yijing-cast.md`,
   `astrology-chart.md`) document the live payload schemas
-- `skills/yifortune/scripts/bridge.py` — the ONLY script; must stay pure
+- `skills/eastalmanac/scripts/bridge.py` — the ONLY script; must stay pure
   Python standard library (any preinstalled Python 3, no pip deps, no Node)
 - `template/SKILL.template.md` — authoring template. Name is deliberate: a
   file named `SKILL.md` here would be discovered as a second skill
@@ -36,7 +36,7 @@ The server must keep the Private Network Access headers
 HTTPS page POSTing to 127.0.0.1 without them.
 
 Smoke test (no browser): `BROWSER=/usr/bin/true python3
-skills/yifortune/scripts/bridge.py cast --question=test`.
+skills/eastalmanac/scripts/bridge.py cast --question=test`.
 
 ## Payload docs are captured, not invented
 
@@ -55,7 +55,7 @@ engine in `packages/calc/src/`, locale list in `apps/umbrella/astro.config.mjs`.
 
 ## Editing rules
 
-- `SKILL.md`: `name` must stay lowercase `yifortune`; description ≤ 1024
+- `SKILL.md`: `name` must stay lowercase `eastalmanac`; description ≤ 1024
   chars; body < 500 lines (push detail into `references/`); version bump per
   SemVer in `metadata`
 - Exactly ONE discoverable skill: `npx skills add . --list` must print
