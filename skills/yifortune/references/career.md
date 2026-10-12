@@ -1,10 +1,10 @@
 # YiFortune Career Reading
 
-Career-focused analysis building on the BaZi chart. Call `get_bazi` (or reuse a prior chart), then apply the career lens below. For the chart's structural reading, consult **bazi-chart**; for terminology, consult **glossary**.
+Career-focused analysis building on the BaZi chart. Obtain the chart via `python3 scripts/bridge.py chart` (or reuse a prior chart), then apply the career lens below. For the chart's structural reading, consult **bazi-chart**; for terminology, consult **glossary**.
 
 ## Data Source
 
-Call `get_bazi` with the user's birth data. Read: 日主 strength, dominant 十神, 大运 sequence, 用神/喜神, and 刑冲合会. If the user also has an astrology chart, cross-reference MC (10th house) and Saturn placement for career direction via the **astrology-chart**.
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: 日主 strength, dominant 十神, 大运 sequence, 用神/喜神, and 刑冲合会. If the user also has an astrology chart, cross-reference MC (10th house) and Saturn placement for career direction via the **astrology-chart**.
 
 ## Analysis Framework
 

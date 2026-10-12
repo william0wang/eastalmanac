@@ -4,7 +4,7 @@ Environmental and lifestyle enhancement from the BaZi five-element profile. For 
 
 ## Data Source
 
-Call `get_bazi`. Read: 用神/喜神 (favorable elements), 五行 distribution (what's weak and needs environmental support). The favorable element drives all recommendations.
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: 用神/喜神 (favorable elements), 五行 distribution (what's weak and needs environmental support). The favorable element drives all recommendations.
 
 ## Analysis Framework
 

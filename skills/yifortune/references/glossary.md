@@ -39,7 +39,7 @@ These describe how stems/branches interact — the dynamism engine of a reading:
 | The Big Three (三巨头) | Sun (太阳 — core identity), Moon (月亮 — emotional needs), Ascendant/Rising (上升 — outward persona).                                                  |
 | Midheaven (MC)         | The 10th house cusp — career direction and public role.                                                                                                |
 | Houses (宫位)          | 12 life areas. Key: 2nd (income), 4th (home/family), 5th (romance/creativity), 6th (daily work), 7th (partnership), 10th (career).                     |
-| Aspects (相位)         | Angular relationships between planets. Major: 合相 conjunction (0°), 六合 sextile (60°), 刑相 square (90°), 三合 trine (120°), 冲相 opposition (180°). |
+| Aspects (相位)         | Angular relationships between planets. Major: 合相 conjunction (0°), 六合 sextile (60°), 刑相 square (90°), 三合 trine (120°), 冲相 opposition (180°). The bridge payload computes only conjunction / square / trine / opposition — no sextile; don't claim one from chart data. |
 | Signs by Element       | Fire (白羊/狮子/射手), Earth (金牛/处女/摩羯), Air (双子/天秤/水瓶), Water (巨蟹/天蝎/双鱼).                                                           |
 
 ## I Ching Terms

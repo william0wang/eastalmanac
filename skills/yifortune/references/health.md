@@ -4,7 +4,7 @@ Health-focused analysis from the BaZi five-element profile. For chart structure,
 
 ## Data Source
 
-Call `get_bazi`. Read: 五行 distribution (which elements are 旺 strong / 弱 weak / 缺 absent), 偏枯 elements (excess or deficiency), 用神/喜神 (the balancing elements), 日主 strength (身旺/身弱 = constitutional type). Ask the user if they have a known health concern, current season of interest, or specific question (sleep / diet / exercise).
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: 五行 distribution (which elements are 旺 strong / 弱 weak / 缺 absent), 偏枯 elements (excess or deficiency), 用神/喜神 (the balancing elements), 日主 strength (身旺/身弱 = constitutional type). Ask the user if they have a known health concern, current season of interest, or specific question (sleep / diet / exercise).
 
 ## Analysis Framework
 

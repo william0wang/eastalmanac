@@ -120,3 +120,24 @@ Used by `annual-reading` and `date-selection`.
 | Heavenly Virtue      | 天德     | Heavenly protection — reduces misfortune                                                     |
 | Monthly Virtue       | 月德     | Monthly protection                                                                           |
 | Void                 | 空亡     | Things feel hollow / don't materialize — not necessarily bad (can neutralize negative stars) |
+
+## 神煞查法 (Star Lookup Rules)
+
+The chart payload from the bridge carries the pillars only — it does **not** pre-compute 神煞. Derive them yourself with these rules (see `love` / `annual-reading` for how to read the stars once found):
+
+**桃花 / 咸池 (Peach Blossom)** — find the person's 桃花 branch from the year (or day) branch's 三合 group; if that branch appears anywhere in the natal chart, the star is present. If a 流年/流月 branch IS the 桃花 branch, that period activates it (a romance year).
+
+| Year/day branch group | 桃花 branch |
+| --------------------- | ----------- |
+| 申 子 辰              | 酉          |
+| 寅 午 戌              | 卯          |
+| 巳 酉 丑              | 午          |
+| 亥 卯 未              | 子          |
+
+**红艳 (Red Glamour)** — classical lookup by **day stem** (schools vary slightly; this is the common table). Present anywhere in the chart = intense romantic allure.
+
+| Day stem | 甲 | 乙 | 丙 | 丁 | 戊 | 己 | 庚 | 辛 | 壬 | 癸 |
+| -------- | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |
+| Branch   | 午 | 申 | 寅 | 未 | 辰 | 辰 | 戌 | 酉 | 子 | 申 |
+
+**驿马 (Travel Star)** — from the year (or day) branch's 三合 group: 申子辰 → 寅, 寅午戌 → 申, 巳酉丑 → 亥, 亥卯未 → 巳.

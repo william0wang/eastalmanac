@@ -1,8 +1,8 @@
 # YiFortune Skill
 
-> **Version 1.0.0** · Updated 2026-07-28 · [Changelog](#changelog)
+> **Version 1.1.0** · Updated 2026-10-12 · [Changelog](#changelog)
 
-把专业的命理解读框架"教"给 AI 客户端，让 LLM 在调用 YiFortune MCP 工具拿到原始数据后，按专业框架输出高质量解读。
+把专业的命理解读框架"教"给 AI 客户端，让 LLM 与 [EastAlmanac](https://eastalmanac.com) 浏览器交互协同拿到原始数据后，按专业框架输出高质量解读。
 
 ## 架构：单 Skill + 渐进式披露
 
@@ -12,8 +12,7 @@
 yifortune/                          ← 唯一的 skill 目录
 ├── SKILL.md                        ← 入口：路由表 + 全局原则（触发时加载）
 ├── scripts/
-│   ├── natal_chart.py              ← 占星本地计算（Python + kerykeion，离线）
-│   └── requirements.txt
+│   └── bridge.py                   ← 唯一的脚本：本地回环桥接（纯标准库 Python，零依赖）
 └── references/                     ← 各主题详细解读框架（按需加载，不占启动上下文）
     ├── bazi-chart.md               ← 八字排盘解读（日主/格局/十神/大运/刑冲合会）
     ├── astrology-chart.md          ← 占星排盘解读（三巨头/行星落宫/相位）
@@ -47,21 +46,28 @@ yifortune/                          ← 唯一的 skill 目录
 - **交叉引用**：功能层 reference 通过 context pointer 引用数据层（如 `career.md` 引用 `bazi-chart.md` 和 `glossary.md`）
 - **语言自适应**：`SKILL.md` 定义全局原则——检测用户语言，用相同语言回答和追问
 
-## 前置条件
+## 前置环境要求
 
-本 skill 需要配合 **YiFortune MCP HTTP 端点**一起使用——skill 提供解读框架，MCP 提供计算数据。使用前两步：
-
-**第一步 — 领 API Key**：打开 **https://yifortune.pages.dev**，输入邮箱，Key 会通过邮件发到你邮箱（注意查收垃圾箱）。普通用户默认 100 次/月配额，按自然月重置。
-
-**第二步 — 配置 MCP 客户端**：按 [yifortune/references/setup.md](yifortune/references/setup.md) 把客户端指向 `https://mcp.yifortune.workers.dev/mcp`，并在请求头带上 `X-API-Key: yfk_...`（你收到的 Key）。
-
-**例外：占星不走 MCP**——`references/astrology-chart.md` 用 `scripts/natal_chart.py`（Python + kerykeion）本地计算星盘。需额外装一次 Python 依赖（从 repo 根目录运行）：
-
-```bash
-pip install -r skills/yifortune/scripts/requirements.txt   # Python ≥ 3.10
-```
+- **零安装，开箱即用**：本地回环桥接脚本（`scripts/bridge.py`）纯标准库实现，系统自带的 Python 3 即可运行，**零第三方依赖、无需 Node.js**。
+- **免注册免配置 Key**：彻底废弃旧版 Worker MCP 远程后端服务，无需申请 API Key，无每月 100 次额度限制。所有排盘推导（八字、易经、西方占星）均在用户浏览器端静态运行。
 
 ## 安装
+
+### 方式 A —— skills CLI 一键安装（推荐）
+
+```bash
+npx skills add william0wang/yifortune
+```
+
+CLI 会自动检测你已安装的 AI 客户端（Claude Code、Codex、Cursor、ZCode 等 75+ 个）并完成安装：
+
+```bash
+npx skills add william0wang/yifortune -a zcode -a claude-code   # 指定客户端
+npx skills add william0wang/yifortune -g                        # 全局（用户级）安装
+npx skills update                                               # 之后一键更新
+```
+
+### 方式 B —— 手动复制
 
 把 `yifortune` 目录复制到你的 AI 客户端对应的 skills 目录：
 
@@ -79,19 +85,19 @@ cp -r yifortune ~/.agents/skills/
 
 ## 验证安装
 
-安装 + 配好 MCP 端点后，在客户端里试这几句话：
+在客户端里试这几句话：
 
 1. **"帮我排个八字，1990 年 1 月 15 日下午 2 点 30 分出生在上海，男"**
-   → 加载 `references/bazi-chart.md`，输出结构化八字盘解读
+   → 打开 EastAlmanac 八字排盘页，回传后加载 `references/bazi-chart.md`，输出结构化八字盘解读
 
 2. **"我适合做什么工作？"**（需先提供出生信息）
    → 加载 `references/career.md`，输出十神→职业天赋 + 用神→行业方向
 
-3. **"帮我为'今年换工作是否合适'起一卦"**（需先让用户报三个 0–99 的数）
-   → 加载 `references/yijing-cast.md`，输出卦象决策分析
+3. **"帮我为'今年换工作是否合适'起一卦"**
+   → 打开 EastAlmanac 画卦起卦交互页，回传后加载 `references/yijing-cast.md`，输出卦象决策分析
 
 4. **"What does my astrology chart say about me?"** (English)
-   → 加载 `references/astrology-chart.md`，**全程英文回答**
+   → 打开占星桥接页（西式星盘 + 八字同屏计算），回传后加载 `references/astrology-chart.md`，**全程英文回答**
 
 5. **"我属龙他属狗，我们配不配"**
    → 加载 `references/compatibility.md`，输出多系统配对分析
@@ -109,13 +115,21 @@ cp -r yifortune ~/.agents/skills/
 
 遵循 [语义化版本](https://semver.org/lang/zh-CN/)：MAJOR（不兼容变更）/ MINOR（向后兼容新增）/ PATCH（修 bug）。
 
+### 1.1.0 — 2026-10-12
+
+- **全面迁移至 EastAlmanac 浏览器回环交互架构**：废弃 Cloudflare Worker MCP 远程后端服务与 API Key 鉴权。
+- 免注册、免配置 Key、零月度调用额度限制，计算 100% 运行在浏览器端。
+- **核心零安装**：桥接脚本改为纯标准库 Python（`scripts/bridge.py`），系统自带 Python 3 即可运行，无需 Node.js、无 pip 依赖；离线起卦脚本（`cast.sh` / `cast.ps1`）已移除。
+- **西方占星也迁移到浏览器端**（`bridge` 动作）：占星桥接页同时计算西式本命盘与同一时刻的八字并打包回传——kerykeion 与 `requirements.txt` 移除，全库零依赖。
+- **七种页面/回传语言**：所有桥接动作支持 `--lang=en|zh|zh-tw|es|pt|de|ja`（默认 `en`），按语言前缀打开页面——提示词、卦名/卦义与出处链接按该语言返回，排盘计算字段与语言无关（三条链路 en/zh 双语 E2E 实测通过）。
+- 支持 skills CLI 一键安装：`npx skills add william0wang/yifortune`。
+- 所有解读结尾均附带出处链接（`canonicalUrl`）。
+
 ### 1.0.0 — 2026-07-28
 
 - 首个公开发布版本
 - 单 skill + 渐进式披露架构（`SKILL.md` 入口 + `references/` 按需加载 + `scripts/` 本地占星计算）
-- 启动时主动验证 MCP 连接，失败时按错误类型引导用户配置（见 `references/setup.md`）
 - 覆盖 15 个主题：八字 / 占星 / 易经 / 事业 / 财运 / 感情 / 健康 / 成长 / 配对 / 周期运势 / 姓名 / 择日 / 风水 / 年度详批 / 术语
 - **白话结论层**：每个解读双层输出——内层命理要点（术语 OK）+ 外层大白话总结（强制最后输出）
 - **语言匹配**：检测用户语言，全程用同一种语言回答
 - **推断优先**：性别、公历/农历等能从用户输入读出来的不再追问
-- **MCP 返回 currentDate**：所有工具返回服务器当前时间作为"今天"锚点，避免预测已过去的时间

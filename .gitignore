@@ -1,9 +1,12 @@
-# Python (astrology local script)
+# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
 .venv/
 venv/
+
+# codesearch index cache
+.tgrep/
 
 # macOS
 .DS_Store

@@ -2,7 +2,7 @@
 name: my-fortune-skill
 description: "One-line description of what this skill reads and when to use it. Include the topic keywords (e.g. 塔罗/tarot, 紫微斗数/ziwei) so agents can route to it. Max 1024 chars."
 license: MIT
-compatibility: "Describe environment requirements: which MCP endpoint or local runtime, language deps, etc. Max 500 chars."
+compatibility: "Describe environment requirements: local runtime and language deps. Prefer zero-install (e.g. preinstalled Python, browser-side computation). Max 500 chars."
 metadata:
   version: "0.1.0"
   author: "your-name"
@@ -35,8 +35,8 @@ Reply in whatever language the user wrote in, from the first message.
 
 | User wants | Load this reference | Tool |
 | ---------- | ------------------- | ---- |
-| topic A | `references/topic-a.md` | MCP tool / local script |
-| topic B | `references/topic-b.md` | MCP tool / local script |
+| topic A | `references/topic-a.md` | EastAlmanac bridge page (`python3 scripts/bridge.py ...`) |
+| topic B | `references/topic-b.md` | EastAlmanac bridge page (`python3 scripts/bridge.py ...`) |
 
 ## Reference template
 
@@ -49,7 +49,7 @@ Each `references/<topic>.md` should follow this skeleton:
 Ask in plain language. Infer what you can from the user's wording.
 
 ## Data Source
-Which MCP tool or local script provides the data.
+Which EastAlmanac bridge page provides the data (`cast` / `chart` / `bridge`).
 
 ## Analysis Framework
 The professional reading structure (terminology OK here — this is the inner layer).

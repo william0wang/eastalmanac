@@ -8,7 +8,7 @@ Thanks for your interest in improving the YiFortune skill! This guide covers the
 skills/yifortune/
 ├── SKILL.md              ← entry: routing table + global principles (edit carefully — affects every reading)
 ├── references/           ← per-topic reading frameworks (most contributions land here)
-└── scripts/              ← local astrology computation (Python)
+└── scripts/              ← bridge.py only (pure-stdlib Python loopback bridge)
 ```
 
 The skill follows the [Agent Skills specification](https://agentskills.io/specification). Before contributing, skim the spec's [frontmatter rules](https://agentskills.io/specification) and the design principles in [`SKILL.md`](skills/yifortune/SKILL.md).
@@ -25,7 +25,7 @@ Want to add a new reading topic (e.g. 六爻, 紫微斗数, 塔罗)? Open an iss
 
 1. Create `references/<topic>.md` following the existing pattern:
    - `## Step 0 — Gather Inputs` (plain-language questions, infer-then-ask)
-   - `## Data Source` (which MCP tool / local script)
+   - `## Data Source` (EastAlmanac bridge page (`python3 scripts/bridge.py ...`))
    - `## Analysis Framework` (the professional reading structure)
    - `## Output` with **two layers**: inner (命理要点, terms OK) + outer (大白话总结, plain language)
 2. Add a row to the routing table in [`SKILL.md`](skills/yifortune/SKILL.md).
@@ -35,14 +35,15 @@ Want to add a new reading topic (e.g. 六爻, 紫微斗数, 塔罗)? Open an iss
 
 The skill auto-detects the user's language and replies in kind. If the plain-language delivery rules or the glossary translations can be improved for a specific language, edit the relevant section.
 
-### Bug fixes in the astrology script
+### Bug fixes in the bridge script
 
-[`scripts/natal_chart.py`](skills/yifortune/scripts/natal_chart.py) is a thin wrapper over [kerykeion](https://github.com/Kostas-001/kerykeion). Keep it dependency-light and offline-only (`online=False`). Test with:
+[`scripts/bridge.py`](skills/yifortune/scripts/bridge.py) must stay pure standard library (no pip dependencies) and work on any preinstalled Python 3. Smoke-test all three actions without opening a browser:
 
 ```bash
-echo '{"name":"test","birthDatetime":"1990-01-15T14:30:00+08:00","lat":39.9042,"lng":116.4074,"tz_str":"Asia/Shanghai"}' \
-  | python3 scripts/natal_chart.py
+BROWSER=/usr/bin/true python3 skills/yifortune/scripts/bridge.py cast --question=test   # then Ctrl-C, or POST to the printed callback URL
 ```
+
+All real calculation happens client-side on `eastalmanac.com` — never add local computation engines to this repo.
 
 ## Authoring rules
 

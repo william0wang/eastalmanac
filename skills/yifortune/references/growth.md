@@ -4,7 +4,7 @@ Growth-focused analysis from the BaZi chart. For chart structure, consult **bazi
 
 ## Data Source
 
-Call `get_bazi`. Read: dominant 十神 (talent clusters), 日主 strength (身旺/身弱), 用神/喜神, 大运 sequence (growth phases). If the user has a specific interest, hobby, or bottleneck they're working on, ask and incorporate it.
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: dominant 十神 (talent clusters), 日主 strength (身旺/身弱), 用神/喜神, 大运 sequence (growth phases). If the user has a specific interest, hobby, or bottleneck they're working on, ask and incorporate it.
 
 ## Analysis Framework
 

@@ -7,13 +7,13 @@ Selecting auspicious dates for important life events. For chart structure, consu
 Interactive — ask before proceeding:
 
 1. **The event**: what is the date for? (结婚/搬家/开业/签约/出行/手术/面试/其他) Different events have different auspiciousness criteria.
-2. **The person's birth data**: to personalize against their chart (用神 favorable elements, clash branches). Call `get_bazi`.
+2. **The person's birth data**: to personalize against their chart (用神 favorable elements, clash branches). Obtain the chart via `python3 scripts/bridge.py chart`.
 3. **Date range**: what window are they considering? (e.g. "next 2 months", "2026 spring")
 4. **Constraints**: any fixed constraints? (must be a weekend, a specific month, etc.)
 
 ## Selection Framework
 
-> **Time anchor**: every recommended date must be checked against `meta.currentDate` from the tool result (see **bazi-chart** Step 1). Never recommend a date that's already past, and never describe a past date as "upcoming". The user's stated date range is a search window, not a guarantee every day in it is still ahead.
+> **Time anchor**: every recommended date must be checked against `syncedAt` from the tool result (see **bazi-chart** Step 1). Never recommend a date that's already past, and never describe a past date as "upcoming". The user's stated date range is a search window, not a guarantee every day in it is still ahead.
 
 ### Layer 1 — Favorable Element Matching (用神择日)
 
@@ -60,7 +60,7 @@ Avoid dates carrying:
 
 ### Layer 5 — I Ching Verification (optional, for major decisions)
 
-For a critical date decision, cast a hexagram asking "此日行此事, 吉凶如何?". **You must ask the user to supply three numbers** (0–99) and pass them to `divine_yijing_numbers` — do not auto-generate numbers. If the verdict is 吉/亨, confirm. If 凶/悔, suggest reconsidering. See **yijing-cast** for the full framework.
+For a critical date decision, cast a hexagram asking "此日行此事, 吉凶如何?". Cast the hexagram via `python3 scripts/bridge.py cast --question="此日行此事吉凶如何"` (or input from the user). If the verdict is 吉/亨, confirm. If 凶/悔, suggest reconsidering. See **yijing-cast** for the full framework.
 
 ## Output
 

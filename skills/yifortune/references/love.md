@@ -4,7 +4,7 @@ Love-focused analysis combining BaZi and (optionally) Western astrology. For cha
 
 ## Data Source
 
-Call `get_bazi`. Read: 日支 (spouse palace / 夫妻宫), 配偶星 (财星 for males, 官杀 for females), 桃花/红艳 stars (神煞), 大运/流年 for timing. If the user also has a birth time + place, compute the Western natal chart via the local script (see **astrology-chart** for the I/O contract) and read Venus (love language), Moon (emotional needs), 7th house (partnership).
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: 日支 (spouse palace / 夫妻宫), 配偶星 (财星 for males, 官杀 for females), 桃花/红艳 stars (神煞 — **not in the payload**: derive from the branches per the lookup rules in **mapping-tables**), 大运/流年 for timing. If the user also has a birth time + place, compute the Western natal chart via `python3 scripts/bridge.py bridge` (see **astrology-chart** for the I/O contract) and read Venus (love language), Moon (emotional needs), 7th house (partnership).
 
 ## Analysis Framework
 
@@ -26,6 +26,8 @@ The day branch IS the spouse palace. Its 十神 reveals the partner's core trait
 - **Female**: 官杀 (authority star) = husband. 正官 = steady, respectable; 七杀 = powerful, intense, may be domineering.
 
 ### Romance Triggers — Stars (神煞)
+
+Derive these from the chart branches with the lookup rules in **mapping-tables** (the payload does not carry them):
 
 - **桃花 (Peach Blossom)**: romance/attraction star — present = magnetic; absent = lower romantic activity
 - **红艳 (Red Glamour)**: intense romantic allure

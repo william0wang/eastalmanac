@@ -20,9 +20,9 @@ Always state the analysis window explicitly: "分析周期: X月X日 ~ X月X日"
 
 ## Data Source
 
-Call `get_bazi`. Read: natal chart, 大运 sequence, 用神/喜神/忌神. Then derive the current 流年/流月/流日 pillar (the current year/month/day's 天干地支).
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: natal chart, 大运 sequence, 用神/喜神/忌神. Then derive the current 流年/流月/流日 pillar (the current year/month/day's 天干地支).
 
-**Derive "current" from `meta.currentDate`** (see **bazi-chart** Step 1) — never from your own session clock. Before reporting any "today / this week / this month" window, verify it actually contains or follows `meta.currentDate`; do not present a past period as current or upcoming.
+**Derive "current" from `syncedAt`** (see **bazi-chart** Step 1) — never from your own session clock. Before reporting any "today / this week / this month" window, verify it actually contains or follows `syncedAt`; do not present a past period as current or upcoming.
 
 ## Analysis Framework
 

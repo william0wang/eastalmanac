@@ -40,22 +40,79 @@ Ask in **plain language** — one short question per missing piece. **Infer what
 
 Ask only for fields you can't infer.
 
-## Step 1 — Get the Chart
+## Step 1 — Get the Chart via Interactive Bridge
 
+Execute the local interactive bridge:
+
+```bash
+python3 scripts/bridge.py chart --date="YYYY-MM-DD" --time="HH:MM" --gender="male|female" --calendar="solar|lunar" --question="用户关注的领域" --lang=<locale>
 ```
-get_bazi({ birthDatetime, gender, calendarType })
+
+`--lang=en|zh|zh-tw|es|pt|de|ja` (default `en`) picks the page locale — the returned `prompt` arrives in that language, so pass the user's conversation language. Under a non-en locale, `canonicalUrl`/`chartToolUrl` arrive with the locale prefix (`/zh/bazi/day-pillar/庚辰/`) — both variants are valid; every calculation field is locale-neutral.
+
+Or, if the user directly pasted an EastAlmanac payload (or text with `=== EASTALMANAC BAZI / CAST RESULT ===`), parse the content directly without invoking the bridge.
+
+### Return Data Structure
+
+The returned payload from `bridge.py` has the following JSON structure (captured from the live site; `pillars` is an array of 4 — year, month, day, hour — and `decadeFortunes` lists 10 大运):
+
+```json
+{
+  "version": "1.0",
+  "source": "eastalmanac.com",
+  "action": "chart",
+  "input": {
+    "question": "看财运",
+    "date": "1990-05-15",
+    "time": "14:30",
+    "gender": "male",
+    "calendar": "solar"
+  },
+  "result": {
+    "bazi": "庚午 辛巳 庚辰 癸未",
+    "solarTime": "1990-05-15 14:30:00",
+    "lunarTime": "农历庚午年四月廿一癸未时",
+    "dayMaster": { "stem": "庚", "element": "metal", "yinYang": "yang" },
+    "pillars": [
+      {
+        "ganzhi": "庚午",
+        "stem": { "name": "庚", "element": "metal", "elementCn": "金", "yinYang": "yang", "tenGod": { "cn": "比肩", "slug": "peer" } },
+        "branch": {
+          "name": "午", "element": "fire", "elementCn": "火", "yinYang": "yang",
+          "hiddenStems": [
+            { "stem": "丁", "role": "main", "tenGod": { "cn": "正官", "slug": "direct-officer" } },
+            { "stem": "己", "role": "middle", "tenGod": { "cn": "正印", "slug": "direct-seal" } }
+          ]
+        }
+      }
+      // ... 4 pillars total: [year, month, day, hour]
+    ],
+    "decadeFortunes": [
+      { "ganzhi": "壬午", "startAge": 8, "endAge": 17, "startYear": 1997, "endYear": 2006, "stemTenGod": "食神" }
+      // ... 10 entries
+    ],
+    "canonicalUrl": "https://eastalmanac.com/bazi/day-pillar/庚辰/",
+    "chartToolUrl": "https://eastalmanac.com/tools/chart/"
+  },
+  "prompt": "两层解读提示词（含日主、性别与出处链接）",
+  "question": "看财运",
+  "syncedAt": "2026-10-11T12:14:22.235Z"
+}
 ```
 
-The result contains: 性别, 阳历, 农历, 八字 (four pillars), 生肖, 日主, 年柱/月柱/日柱/时柱 (each with 天干/地支/五行/阴阳/十神/藏干/纳音/空亡/星运/自坐), 胎元, 胎息, 命宫, 身宫, 神煞, 大运 (10 luck pillars with 干支/十神/起止年龄), 刑冲合会 (inter-pillar clashes/combinations).
+Field notes:
 
-### `meta.currentDate` — the "today" anchor (use it, never guess)
+- `pillars[i].branch.hiddenStems` — each carries `role`: `main` (本气) / `middle` (中气) / `residual` (余气), with its own `tenGod` relative to the day master.
+- `stem.tenGod` on the year/month/hour pillars is relative to the day master; on the day pillar itself it echoes the day master.
+- The payload carries the chart skeleton only — 纳音, 神煞, 胎元/命宫 are **not** included; don't invent them. If a topic needs them, derive from your own knowledge or link `canonicalUrl` for the user.
+- 刑冲合会 is **not** pre-computed — derive clashes/combinations yourself from the four branches (子午冲, 巳酉丑三合, etc.; see **glossary**).
 
-The result also carries `meta.currentDate`: the **server's current time as an ISO-8601 string with the birthplace offset**, e.g. `"2026-07-28T20:22:38+08:00"`. This is your source of truth for "what day is today" — **always derive the current year (流年), month (流月), day (流日), and current 大运 phase from it**, never from your own session clock. Your session clock can drift across timezones or stale contexts and silently produce forecasts of dates already past.
+### `syncedAt` — the "today" anchor (use it, never guess)
 
-- Read `meta.currentDate` first, then determine which 大运 the person is currently in, which 流年/流月 is current.
-- The offset in `meta.currentDate` matches the **birthplace** timezone (the only trusted zone on the server). If the user explicitly states they now live in a different timezone, still anchor "today" by this instant — a calendar day boundary depends on where they are, so adjust the wall-clock day only if the user's stated location crosses a day boundary relative to the birthplace.
-- When describing any time-window fortune ("this month", "this year"), verify it's not already past by checking against `meta.currentDate` before output.
-- **All tools return `meta.currentDate`** — `get_bazi` uses the birthplace offset; `divine_yijing_*` use +08:00 (default, since the input carries no timezone). The underlying UTC instant is the same; only the displayed wall-clock differs. Prefer the `get_bazi` version when both are available in a session.
+The payload's top-level `syncedAt` (ISO-8601, UTC) is the moment the page synced — your source of truth for "what day is today". **Always derive the current year (流年), month (流月), and the current 大运 phase from it**, never from your own session clock, which can drift across timezones or stale contexts.
+
+- Convert `syncedAt` to the user's timezone, then locate the current 大运 via `decadeFortunes[].startYear/endYear`.
+- When describing any time-window fortune ("this month", "this year"), verify it's not already past by checking against `syncedAt` before output.
 
 For terminology (十神, 藏干, 纳音, etc.), consult **glossary**.
 
@@ -75,7 +132,7 @@ Read which 十神 appear prominently and note the talent cluster (see glossary f
 
 ### Luck Pillars (大运时机)
 
-Scan the 10 大运 entries. Note: which 大运 are 用神/favorable (smooth decade) vs 忌神/unfavorable (challenging decade), the current 大运, and major transitions (起运年龄). This is the timing foundation for career/wealth/love/period references.
+Scan the 10 `decadeFortunes` entries. Note: which 大运 are 用神/favorable (smooth decade) vs 忌神/unfavorable (challenging decade) — `stemTenGod` tells you which ten god each decade's stem brings; the current 大运 is the entry whose `startYear`–`endYear` spans the `syncedAt` year; note major transitions (`startAge`). This is the timing foundation for career/wealth/love/period references.
 
 ### 刑冲合会 (Chart Dynamism)
 
@@ -99,6 +156,9 @@ A structural chart reading in **two layers** (see SKILL.md — the plain layer i
 7. **目前这段大运在说什么** — what the current decade phase means for them in life terms (e.g. "现在这十年对你来说是攒本事、打底子的阶段")
 8. **你身上最需要注意的一点** — the single most important takeaway from the 刑冲合会 / 偏枯, in plain words
 
+**Canonical Link (出处链接，必须附在末尾):**
+Append the `result.canonicalUrl` (e.g. `https://eastalmanac.com/bazi/day-pillar/庚辰/`) at the end for the user to explore the full visual chart and commentary.
+
 **When the user asks about a specific topic** (career, wealth, love, health, growth, etc.), do NOT attempt it here — tell the user (or route to) the dedicated topic reference, which will reference this chart.
 
 ## 解读完后：要不要补一个星盘
@@ -107,4 +167,4 @@ A structural chart reading in **two layers** (see SKILL.md — the plain layer i
 
 > "八字看完大势了，要不要我再给你排个西方星盘？能补上你性格和情感那一面的细节。"
 
-**先确认环境**：astrology 走的是本地 Python 脚本（`references/astrology-chart.md`），需要用户机器装了 Python 3.10+ 和 kerykeion。推荐前先确认环境（看 astrology-chart Step 0 的前置检查）；环境不具备就别强推，体验翻车比少一项更糟。
+星盘和八字走同一条浏览器交互链路（`bridge` 动作一次排两套盘），没有环境门槛，随时可以推荐。排盘输入见 `references/astrology-chart.md`。

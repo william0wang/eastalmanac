@@ -7,7 +7,7 @@ Five-dimensional name evaluation. For chart structure, consult **bazi-chart**; f
 Interactive — ask, don't guess:
 
 1. **The name**: exact Chinese characters of the full name (姓 + 名), including surname.
-2. **Birth data** (optional but recommended): for the BaZi-compatibility dimension. If provided, call `get_bazi` to get the 用神/喜神 and day master.
+2. **Birth data** (optional but recommended): for the BaZi-compatibility dimension. If provided, obtain the chart via `python3 scripts/bridge.py chart` to get the 用神/喜神 and day master.
 
 ## Analysis — Five Dimensions
 

@@ -9,9 +9,9 @@ A comprehensive full-year forecast — deeper than the period-fortune yearly mod
 
 ## Data Source
 
-Call `get_bazi`. Read: natal chart, 大运 sequence (which decade is the person in this year?), 用神/喜神/忌神, 日主, key 十神. Then derive the **流年** (the target year's 天干地支) and the **流月** pillars for each of the 12 months.
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: natal chart, 大运 sequence (which decade is the person in this year?), 用神/喜神/忌神, 日主, key 十神. Then derive the **流年** (the target year's 天干地支) and the **流月** pillars for each of the 12 months.
 
-**Anchor "today" on `meta.currentDate` from the chart result** (see **bazi-chart** Step 1) — derive the target year's position relative to it. When laying out the 12-month trend, verify each month against `meta.currentDate` so you never forecast a month that's already past as "upcoming".
+**Anchor "today" on `syncedAt` from the chart result** (see **bazi-chart** Step 1) — derive the target year's position relative to it. When laying out the 12-month trend, verify each month against `syncedAt` so you never forecast a month that's already past as "upcoming".
 
 ## Analysis Framework
 

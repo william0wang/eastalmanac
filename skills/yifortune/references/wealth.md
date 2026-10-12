@@ -1,10 +1,10 @@
 # YiFortune Wealth Reading
 
-Wealth-focused analysis building on the BaZi chart. Call `get_bazi`, then apply the wealth lens. For chart structure, consult **bazi-chart**; for terminology, consult **glossary**.
+Wealth-focused analysis building on the BaZi chart. Obtain the chart via `python3 scripts/bridge.py chart` (or reuse a prior chart), then apply the wealth lens. For chart structure, consult **bazi-chart**; for terminology, consult **glossary**.
 
 ## Data Source
 
-Call `get_bazi`. Read: 正财 vs 偏财 presence and strength, day master strength (身旺/身弱), 用神 element, 财星 relationships (is wealth clashing? supported? drained?).
+Obtain the BaZi chart data (via `python3 scripts/bridge.py chart` or user-provided chart). Read: 正财 vs 偏财 presence and strength, day master strength (身旺/身弱), 用神 element, 财星 relationships (is wealth clashing? supported? drained?).
 
 ## Analysis Framework
 
