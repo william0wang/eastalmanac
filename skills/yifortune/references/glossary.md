@@ -1,4 +1,4 @@
-# YiFortune Glossary
+# EastAlmanac Glossary
 
 The single source of truth for fortune-telling terminology and mapping tables. All other `` skills reference this instead of redefining terms.
 

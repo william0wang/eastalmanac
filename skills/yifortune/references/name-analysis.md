@@ -1,4 +1,4 @@
-# YiFortune Name Analysis
+# EastAlmanac Name Analysis
 
 Five-dimensional name evaluation. For chart structure, consult **bazi-chart**; for the 五格剖象法 reference, consult **glossary** terms-detail.md.
 

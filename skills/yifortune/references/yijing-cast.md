@@ -1,4 +1,4 @@
-# YiFortune I Ching Divination — Data Layer
+# EastAlmanac I Ching Divination — Data Layer
 
 This skill casts a hexagram and **structurally reads** the result. I Ching is for **specific questions and decisions** — not general personality readings.
 

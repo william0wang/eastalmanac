@@ -1,4 +1,4 @@
-# YiFortune Health & Wellness Reading
+# EastAlmanac Health & Wellness Reading
 
 Health-focused analysis from the BaZi five-element profile. For chart structure, consult **bazi-chart**; for the full element → organ/diet/exercise/season mapping tables, consult **glossary** (especially mapping-tables.md).
 

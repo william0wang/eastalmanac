@@ -1,4 +1,4 @@
-# YiFortune Love & Marriage Reading
+# EastAlmanac Love & Marriage Reading
 
 Love-focused analysis combining BaZi and (optionally) Western astrology. For chart structure, consult **bazi-chart**; for terminology, **glossary**.
 

@@ -1,6 +1,6 @@
-# Contributing to YiFortune Skill
+# Contributing to EastAlmanac Skill
 
-Thanks for your interest in improving the YiFortune skill! This guide covers the most common contribution types.
+Thanks for your interest in improving the EastAlmanac skill! This guide covers the most common contribution types.
 
 ## Repository layout
 

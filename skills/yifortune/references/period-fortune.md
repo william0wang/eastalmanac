@@ -1,4 +1,4 @@
-# YiFortune Period Fortune Reading
+# EastAlmanac Period Fortune Reading
 
 Time-window fortune analysis from the BaZi chart + current cosmic pillars. For chart structure, consult **bazi-chart**; for terminology, **glossary**.
 

@@ -1,4 +1,4 @@
-# YiFortune Wealth Reading
+# EastAlmanac Wealth Reading
 
 Wealth-focused analysis building on the BaZi chart. Obtain the chart via `python3 scripts/bridge.py chart` (or reuse a prior chart), then apply the wealth lens. For chart structure, consult **bazi-chart**; for terminology, consult **glossary**.
 

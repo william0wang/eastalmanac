@@ -1,4 +1,4 @@
-# YiFortune BaZi Chart — Data Layer
+# EastAlmanac BaZi Chart — Data Layer
 
 This reference computes and **structurally reads** a BaZi chart. It is the foundation that career, wealth, love, health, growth, and other topic frameworks build on. **This reference does NOT do topic-specific analysis** (career direction, wealth strategy, etc.) — route those to the dedicated topic references.
 

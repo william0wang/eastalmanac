@@ -1,4 +1,4 @@
-# YiFortune Feng Shui & Favorable Elements
+# EastAlmanac Feng Shui & Favorable Elements
 
 Environmental and lifestyle enhancement from the BaZi five-element profile. For chart structure, consult **bazi-chart**; for the full element → direction/color/material tables, consult **glossary** mapping-tables.md.
 

@@ -1,4 +1,4 @@
-# YiFortune Date Selection (择日择吉)
+# EastAlmanac Date Selection (择日择吉)
 
 Selecting auspicious dates for important life events. For chart structure, consult **bazi-chart**; for divination, consult **yijing-cast**; for terminology, **glossary**.
 

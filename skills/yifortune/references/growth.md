@@ -1,4 +1,4 @@
-# YiFortune Personal Growth Reading
+# EastAlmanac Personal Growth Reading
 
 Growth-focused analysis from the BaZi chart. For chart structure, consult **bazi-chart**; for terminology, **glossary**.
 

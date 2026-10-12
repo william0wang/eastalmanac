@@ -1,6 +1,6 @@
 # yifortune-oss — Agent Workspace Guide
 
-Open-source Agent Skill repo (GitHub: `william0wang/yifortune`) that teaches LLM
+Open-source Agent Skill repo (GitHub: `william0wang/eastalmanac`) that teaches LLM
 agents Chinese fortune-telling + Western astrology **reading frameworks**.
 Zero-backend: every calculation (BaZi, I Ching, western chart) runs client-side
 on `https://eastalmanac.com`; the only code is a pure-stdlib Python loopback

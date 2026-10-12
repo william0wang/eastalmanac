@@ -1,4 +1,4 @@
-# YiFortune Career Reading
+# EastAlmanac Career Reading
 
 Career-focused analysis building on the BaZi chart. Obtain the chart via `python3 scripts/bridge.py chart` (or reuse a prior chart), then apply the career lens below. For the chart's structural reading, consult **bazi-chart**; for terminology, consult **glossary**.
 

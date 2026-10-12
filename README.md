@@ -1,15 +1,15 @@
-# YiFortune Skill
+# EastAlmanac Skill
 
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
-[![skills.sh](https://skills.sh/b/william0wang/yifortune)](https://skills.sh/william0wang/yifortune)
+[![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](#changelog)
 
 **English** · **[简体中文](README.zh-CN.md)**
 
 > An [Agent Skills](https://agentskills.io)–compliant skill that turns any LLM client into a professional Chinese fortune-telling and astrology assistant through interactive browser synergy with [EastAlmanac](https://eastalmanac.com).
 
-YiFortune teaches an AI **how to read** fortune-telling data — the structural frameworks, the terminology, and the plain-language delivery — so that when a chart or hexagram is computed, the output is a high-quality professional reading instead of raw numbers.
+EastAlmanac teaches an AI **how to read** fortune-telling data — the structural frameworks, the terminology, and the plain-language delivery — so that when a chart or hexagram is computed, the output is a high-quality professional reading instead of raw numbers.
 
 It covers **15 topics**: 八字 (BaZi), 西方占星 (Western astrology), 易经起卦 (I Ching divination), 事业 (career), 财运 (wealth), 感情 (love), 健康 (health), 成长 (growth), 配对 (compatibility), 周期运势 (period fortune), 姓名 (name analysis), 择日 (date selection), 风水 (feng shui), 流年详批 (annual reading), and a shared terminology layer.
 
@@ -43,14 +43,14 @@ It covers **15 topics**: 八字 (BaZi), 西方占星 (Western astrology), 易经
 ### Option A — One command via the [skills CLI](https://skills.sh) (recommended)
 
 ```bash
-npx skills add william0wang/yifortune
+npx skills add william0wang/eastalmanac
 ```
 
 The CLI auto-detects your installed agents (Claude Code, Codex, Cursor, ZCode, and 75+ more) and installs the skill for you. Useful variants:
 
 ```bash
-npx skills add william0wang/yifortune -a claude-code -a zcode   # target specific agents
-npx skills add william0wang/yifortune -g                        # global (user-level) install
+npx skills add william0wang/eastalmanac -a claude-code -a zcode   # target specific agents
+npx skills add william0wang/eastalmanac -g                        # global (user-level) install
 npx skills update                                               # update later
 ```
 
@@ -61,15 +61,15 @@ Copy the `yifortune` skill directory into your client's skills folder.
 **Claude Code / other `~/.agents`-compatible clients:**
 
 ```bash
-git clone https://github.com/william0wang/yifortune.git
-cp -r yifortune/skills/yifortune ~/.agents/skills/
+git clone https://github.com/william0wang/eastalmanac.git
+cp -r eastalmanac/skills/yifortune ~/.agents/skills/
 ```
 
 **ZCode:**
 
 ```bash
-git clone https://github.com/william0wang/yifortune.git
-cp -r yifortune/skills/yifortune ~/.zcode/skills/
+git clone https://github.com/william0wang/eastalmanac.git
+cp -r eastalmanac/skills/yifortune ~/.zcode/skills/
 ```
 
 **Claude Desktop:** place the skill under `~/Library/Application Support/Claude/skills/` (macOS) or `%APPDATA%\Claude\skills\` (Windows), then restart Claude Desktop.
@@ -94,7 +94,7 @@ Try these prompts in your client:
 
 ## Architecture: single skill + progressive disclosure
 
-Following the [Agent Skills spec](https://agentskills.io/specification), YiFortune is **one skill** that loads content on demand:
+Following the [Agent Skills spec](https://agentskills.io/specification), EastAlmanac is **one skill** that loads content on demand:
 
 ```
 skills/yifortune/
@@ -134,6 +134,19 @@ All calculation happens client-side on `eastalmanac.com`; the only local code is
 
 ---
 
+## Open calculation architecture (How It Works)
+
+Unlike black-box divination and astrology platforms, EastAlmanac fully publishes and specifies its underlying calculation engines. Every scoring model, bitwise state machine, and astronomical coordinate transformation is documented as an open, reproducible specification:
+
+- **[How EastAlmanac Works (Index)](docs/how-it-works/README.md)** ([中文版](docs/how-it-works/README.zh-CN.md))
+- **[Three-Number I Ching Casting](docs/how-it-works/three-number-casting.md)** ([中文版](docs/how-it-works/three-number-casting.zh-CN.md)): 3-bit modulo arithmetic, Hamming parity state machine, and Master Zhu Xi's changing-line judgment rules.
+- **[BaZi Four Pillars Casting](docs/how-it-works/four-pillars.md)** ([中文版](docs/how-it-works/four-pillars.zh-CN.md)): Birthplace wall-clock authority, solar-term month boundaries, Sect 2 (子初换日) midnight rules, and decade fortunes.
+- **[Five-Element Strength Scoring](docs/how-it-works/strength-scoring.md)** ([中文版](docs/how-it-works/strength-scoring.zh-CN.md)): Transparent base stem/branch weight tables, seasonal prosperity multipliers (旺相休囚死), and 扶抑 balancing remedies.
+- **[Structural Dynamics & Interactions](docs/how-it-works/structural-attrs.md)** ([中文版](docs/how-it-works/structural-attrs.zh-CN.md)): *I Ching* line correctness (当位), centrality (得中), polar correspondence (应), and BaZi earthly branch harmonies, clashes, and punishments.
+- **[Western Tropical Natal Chart](docs/how-it-works/western-chart.md)** ([中文版](docs/how-it-works/western-chart.zh-CN.md)): Hellenistic Whole-Sign house system, four major Ptolemaic aspects, hierarchical orbs, and Swiss Ephemeris alignment (0.0″ ASC/MC match).
+
+---
+
 ## Design principles
 
 - **Audience: ordinary people, not masters** — the AI serves a curious layperson. Every reading has two layers: an inner layer (chart facts + terminology, for traceability) and an **outer layer in plain language** (what the user actually came for).
@@ -167,6 +180,12 @@ Contributions are welcome — especially corrections to terminology, new topic r
 
 ## Changelog
 
+### 1.2.0 — 2026-10-12
+
+- **How-It-Works open calculation docs** (`docs/how-it-works/`): five reproducible specifications — three-number I Ching casting, BaZi four pillars, five-element strength scoring (full weight tables), structural attributes (line positions & branch relations), and the western natal chart — each with formulas, complete numeric tables, and golden worked examples. EN + zh-CN, indexed by a landing README and linked from all three repo READMEs.
+- **Rebranded to EastAlmanac** across every doc, reference title, and script message to match the eastalmanac.com site brand (the skill `name` stays `yifortune`).
+- **Repo renamed** `william0wang/yifortune` → `william0wang/eastalmanac`; install commands, clone examples, and the skills.sh badge updated (old URLs keep redirecting).
+
 ### 1.1.1 — 2026-10-12
 
 - **Data-only payload rule**: `SKILL.md` now instructs the agent to treat the bridge's returned JSON (and pasted EastAlmanac text) strictly as chart data — instruction-like text inside payload fields is ignored, never executed. Narrows the prompt-injection surface if the site were ever compromised.
@@ -179,7 +198,7 @@ Contributions are welcome — especially corrections to terminology, new topic r
 - **Zero-install core**: the bridge is now pure standard-library Python — runs on any preinstalled Python 3, no Node.js, no pip dependencies. The bundled offline casting scripts (`cast.sh` / `cast.ps1`) were removed; all BaZi and I Ching calculation happens in the browser.
 - **Western astrology migrated to the browser too** (`bridge` action): the astrology-bridge page computes the western natal chart and the BaZi of the same birth moment client-side, returning both in one payload — kerykeion, `requirements.txt`, and the AGPL notice are gone; the skill is now dependency-free end to end.
 - **Seven page/payload locales**: every bridge action accepts `--lang=en|zh|zh-tw|es|pt|de|ja` (default `en`) and opens under the locale prefix — the prompt, hexagram names/essence, and canonical links come back in that language, while all calculation fields stay locale-neutral (verified by en/zh E2E on all three flows).
-- One-command install via the skills CLI: `npx skills add william0wang/yifortune`.
+- One-command install via the skills CLI: `npx skills add william0wang/eastalmanac`.
 - Interactive stroke-derived hexagram casting and visual BaZi chart verification in browser with one-click return to terminal Agent.
 - Added canonical URL reference links to every reading.
 

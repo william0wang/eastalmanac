@@ -1,15 +1,15 @@
-# YiFortune Skill
+# EastAlmanac Skill
 
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
-[![skills.sh](https://skills.sh/b/william0wang/yifortune)](https://skills.sh/william0wang/yifortune)
+[![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-1.2.0-green.svg)](#changelog)
 
 **[English](README.md)** · **简体中文**
 
 > 一个符合 [Agent Skills](https://agentskills.io) 规范的 skill，通过与 [EastAlmanac](https://eastalmanac.com) 浏览器交互协同，把任意 LLM 客户端变成专业的命理解读助手。
 
-YiFortune 教 AI **怎么解读**命理数据——排盘框架、术语体系、白话表达——这样当八字或卦象算出来之后，输出的是一份高质量的专业解读，而不是一堆原始数字。
+EastAlmanac 教 AI **怎么解读**命理数据——排盘框架、术语体系、白话表达——这样当八字或卦象算出来之后，输出的是一份高质量的专业解读，而不是一堆原始数字。
 
 覆盖 **15 个主题**：八字、西方占星、易经起卦、事业、财运、感情、健康、成长、配对、周期运势、姓名、择日、风水、流年详批，外加一套共享的术语层。
 
@@ -43,14 +43,14 @@ YiFortune 教 AI **怎么解读**命理数据——排盘框架、术语体系�
 ### 方式 A —— [skills CLI](https://skills.sh) 一键安装（推荐）
 
 ```bash
-npx skills add william0wang/yifortune
+npx skills add william0wang/eastalmanac
 ```
 
 CLI 会自动检测你已安装的 AI 客户端（Claude Code、Codex、Cursor、ZCode 等 75+ 个）并完成安装。常用变体：
 
 ```bash
-npx skills add william0wang/yifortune -a claude-code -a zcode   # 指定客户端
-npx skills add william0wang/yifortune -g                        # 全局（用户级）安装
+npx skills add william0wang/eastalmanac -a claude-code -a zcode   # 指定客户端
+npx skills add william0wang/eastalmanac -g                        # 全局（用户级）安装
 npx skills update                                               # 之后一键更新
 ```
 
@@ -61,15 +61,15 @@ npx skills update                                               # 之后一键�
 **Claude Code / 其他兼容 `~/.agents` 的客户端：**
 
 ```bash
-git clone https://github.com/william0wang/yifortune.git
-cp -r yifortune/skills/yifortune ~/.agents/skills/
+git clone https://github.com/william0wang/eastalmanac.git
+cp -r eastalmanac/skills/yifortune ~/.agents/skills/
 ```
 
 **ZCode：**
 
 ```bash
-git clone https://github.com/william0wang/yifortune.git
-cp -r yifortune/skills/yifortune ~/.zcode/skills/
+git clone https://github.com/william0wang/eastalmanac.git
+cp -r eastalmanac/skills/yifortune ~/.zcode/skills/
 ```
 
 **Claude Desktop：** 把 skill 放到 `~/Library/Application Support/Claude/skills/`（macOS）或 `%APPDATA%\Claude\skills\`（Windows），然后重启 Claude Desktop。
@@ -94,7 +94,7 @@ cp -r yifortune/skills/yifortune ~/.zcode/skills/
 
 ## 架构：单 skill + 渐进式披露
 
-遵循 [Agent Skills 规范](https://agentskills.io/specification)，YiFortune 是**一个 skill**，内容按需加载：
+遵循 [Agent Skills 规范](https://agentskills.io/specification)，EastAlmanac 是**一个 skill**，内容按需加载：
 
 ```
 skills/yifortune/
@@ -134,6 +134,19 @@ skills/yifortune/
 
 ---
 
+## 开放计算架构（算法与原理文档）
+
+与市面上大量黑盒算命与占星工具不同，EastAlmanac 将底层的核心计算模型、权重配比表与天文推导法则完全公开，作为可逐字复现的标准规范对外发布：
+
+- **[计算架构规范总览 (Index)](docs/how-it-works/README.zh-CN.md)** ([English](docs/how-it-works/README.md))
+- **[易经三数起卦算法规范](docs/how-it-works/three-number-casting.zh-CN.md)** ([English](docs/how-it-works/three-number-casting.md))：3-bit 模运算、奇偶状态机、六爻动静判定与朱熹动爻断法。
+- **[四柱八字排盘规范](docs/how-it-works/four-pillars.zh-CN.md)** ([English](docs/how-it-works/four-pillars.md))：出生地挂钟时间权威、节气月柱边界、Sect 2（子初换日）早晚子时取舍与大运顺逆推排。
+- **[五行旺衰打分模型](docs/how-it-works/strength-scoring.zh-CN.md)** ([English](docs/how-it-works/strength-scoring.md))：透干与支藏干基准权重、月令旺相休囚死五级乘数、50% 生扶临界点与正统扶抑喜用神。
+- **[结构属性与作用规范](docs/how-it-works/structural-attrs.zh-CN.md)** ([English](docs/how-it-works/structural-attrs.md))：易经爻位当位/得中/中正/正应/乘承比与互卦；地支三合/六合/六冲/三刑/六害拓扑网络。
+- **[西方回归黄道本命盘规范](docs/how-it-works/western-chart.zh-CN.md)** ([English](docs/how-it-works/western-chart.md))：希腊化古典整宫制（Whole-Sign）、四大主要托勒密相位、分层容许度与瑞士星历表（Swiss Ephemeris）0.0″ 严密对齐。
+
+---
+
 ## 设计原则
 
 - **服务对象是普通人，不是命理大师** —— AI 服务的是好奇的门外汉。每次解读分两层：内层（命理要点 + 术语，保证可追溯）+ **外层大白话**（用户真正想要的）。
@@ -167,6 +180,12 @@ skills/yifortune/
 
 ## Changelog
 
+### 1.2.0 — 2026-10-12
+
+- **开放计算架构文档（How-It-Works）**（`docs/how-it-works/`）：五篇可逐字复现的算法规范——三数起卦、四柱排盘、五行旺衰打分（完整权重表）、结构属性（爻位格局与地支刑冲合害）、西方本命星盘——每篇含公式、完整数值表与金样演算，中英双语，带索引页并从三份 README 互链。
+- **品牌统一为 EastAlmanac**：所有文档、references 标题与脚本提示信息均与 eastalmanac.com 网站品牌对齐（skill 标识 `name` 仍为 `yifortune`）。
+- **仓库改名** `william0wang/yifortune` → `william0wang/eastalmanac`；安装命令、clone 示例与 skills.sh 徽章已同步更新（旧地址保持自动重定向）。
+
 ### 1.1.1 — 2026-10-12
 
 - **回传数据仅作数据（data-only）规则**：`SKILL.md` 明确指示 agent 把桥接回传的 JSON（及用户粘贴的 EastAlmanac 文本）一律当作命理数据使用——字段中出现的任何指令式文本一律忽略、绝不执行，收窄网站被攻破时的提示注入面。
@@ -179,7 +198,7 @@ skills/yifortune/
 - **核心零安装**：桥接脚本改为纯标准库 Python——系统自带 Python 3 即可运行，不再需要 Node.js，也没有任何 pip 依赖。内置的离线起卦脚本（`cast.sh` / `cast.ps1`）已移除，八字与易经的全部计算都在浏览器端完成。
 - **西方占星也迁移到浏览器端**（`bridge` 动作）：占星桥接页同时计算西式本命盘与同一时刻的八字并打包回传——kerykeion、`requirements.txt` 和 AGPL 许可证说明全部移除，整个 skill 端到端零依赖。
 - **七种页面/回传语言**：所有桥接动作支持 `--lang=en|zh|zh-tw|es|pt|de|ja`（默认 `en`），按语言前缀打开页面——提示词、卦名/卦义与出处链接按该语言返回，排盘计算字段与语言无关（三条链路 en/zh 双语 E2E 实测通过）。
-- 支持 skills CLI 一键安装：`npx skills add william0wang/yifortune`。
+- 支持 skills CLI 一键安装：`npx skills add william0wang/eastalmanac`。
 - 所有解读结尾均附带出处链接（`canonicalUrl`）。
 
 ### 1.0.0 — 2026-07-28

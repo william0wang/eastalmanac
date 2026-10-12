@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""YiFortune local loopback bridge (pure Python standard library).
+"""EastAlmanac local loopback bridge (pure Python standard library).
 
 Starts a one-shot HTTP server on 127.0.0.1 (ephemeral port), opens the
 EastAlmanac tool page in the user's default browser with a callback URL,
@@ -143,12 +143,12 @@ def main():
     path = "astrology-bridge/" if action == "bridge" else "tools/%s/" % action
     target_url = "%s/%s?%s" % (origin, path, urlencode(query))
 
-    print("[YiFortune] 正在为您打开网页进行交互: %s" % target_url, file=sys.stderr, flush=True)
+    print("[EastAlmanac] 正在为您打开网页进行交互: %s" % target_url, file=sys.stderr, flush=True)
 
     def open_browser():
         if not webbrowser.open(target_url):
             print(
-                "[YiFortune] 无法自动打开浏览器，请手动访问: %s" % target_url,
+                "[EastAlmanac] 无法自动打开浏览器，请手动访问: %s" % target_url,
                 file=sys.stderr,
                 flush=True,
             )
@@ -160,7 +160,7 @@ def main():
     def on_timeout():
         timed_out.set()
         print(
-            "[YiFortune] 等待网页操作超时 (5分钟)。如已在网页生成结果，可复制提示词直接粘贴。",
+            "[EastAlmanac] 等待网页操作超时 (5分钟)。如已在网页生成结果，可复制提示词直接粘贴。",
             file=sys.stderr,
             flush=True,
         )

@@ -1,4 +1,4 @@
-# YiFortune Annual Reading (流年详批)
+# EastAlmanac Annual Reading (流年详批)
 
 A comprehensive full-year forecast — deeper than the period-fortune yearly mode. For chart structure, consult **bazi-chart**; for terminology and annual stars, consult **glossary**.
 

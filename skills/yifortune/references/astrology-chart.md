@@ -1,4 +1,4 @@
-# YiFortune Astrology Chart — Data Layer
+# EastAlmanac Astrology Chart — Data Layer
 
 This reference obtains a western natal chart via the EastAlmanac **astrology-bridge** page — the chart is computed **entirely client-side in the browser** (astronomy engine), side by side with the BaZi four pillars of the same birth moment — then **structurally reads** the result. It is the foundation that love, compatibility, and career frameworks build on. **This reference does NOT do topic-specific analysis** — route those to dedicated topic references.
 

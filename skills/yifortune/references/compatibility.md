@@ -1,4 +1,4 @@
-# YiFortune Compatibility Reading
+# EastAlmanac Compatibility Reading
 
 Multi-system compatibility analysis between **two people**. Collect info about both by asking — don't guess birth years, blood types, or MBTI. You don't need every field to start; work with what's given and ask for more when it unlocks a deeper system.
 
