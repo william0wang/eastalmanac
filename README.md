@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/yifortune)](https://skills.sh/william0wang/yifortune)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](#changelog)
 
 **English** · **[简体中文](README.zh-CN.md)**
 
@@ -121,6 +121,19 @@ skills/yifortune/
 
 ---
 
+## Security & Trust Model
+
+All calculation happens client-side on `eastalmanac.com`; the only local code is `scripts/bridge.py` (pure stdlib, ~180 lines — read it yourself):
+
+- **One-way loopback data flow**: the bridge binds to `127.0.0.1` on an ephemeral port, waits for exactly one POST from the tool page, prints the JSON to stdout, and exits. `GET` returns 404; nothing else is served. 5-minute timeout, then it shuts down.
+- **Single external origin**: the bridge's only outbound action is opening the tool page at `https://eastalmanac.com` (locale-prefixed) in your browser. The callback URL points at `127.0.0.1`, and the page refuses non-localhost callbacks.
+- **No secrets, no telemetry**: no API keys, no accounts, no analytics, no file access — there is nothing to leak.
+- **Payload is data, not instructions**: the skill instructs the agent to use the returned JSON strictly as chart facts and to ignore any instruction-like text inside it, so a compromised page cannot drive the agent.
+
+> Security scanners may flag the runtime dependency on `eastalmanac.com` (e.g. Snyk Agent Scan W012 "unverifiable external dependency"). That is inherent to the zero-backend design — it is the trust boundary described above, not a finding of malicious code.
+
+---
+
 ## Design principles
 
 - **Audience: ordinary people, not masters** — the AI serves a curious layperson. Every reading has two layers: an inner layer (chart facts + terminology, for traceability) and an **outer layer in plain language** (what the user actually came for).
@@ -153,6 +166,11 @@ skills/yifortune/
 Contributions are welcome — especially corrections to terminology, new topic references, or translations. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Changelog
+
+### 1.1.1 — 2026-10-12
+
+- **Data-only payload rule**: `SKILL.md` now instructs the agent to treat the bridge's returned JSON (and pasted EastAlmanac text) strictly as chart data — instruction-like text inside payload fields is ignored, never executed. Narrows the prompt-injection surface if the site were ever compromised.
+- **Security & Trust Model** section added: one-way loopback data flow, one-shot server on `127.0.0.1`, no telemetry, single external origin (`eastalmanac.com`).
 
 ### 1.1.0 — 2026-10-12
 

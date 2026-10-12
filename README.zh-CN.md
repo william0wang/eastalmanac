@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/yifortune)](https://skills.sh/william0wang/yifortune)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-1.1.1-green.svg)](#changelog)
 
 **[English](README.md)** · **简体中文**
 
@@ -121,6 +121,19 @@ skills/yifortune/
 
 ---
 
+## 安全与信任模型
+
+所有计算在 `eastalmanac.com` 浏览器端完成；仓库里唯一的本地代码是 `scripts/bridge.py`（纯标准库，约 180 行，可直接审阅）：
+
+- **单向回环数据流**：桥接只在 `127.0.0.1` 随机端口监听，收到工具页的一次 POST 后把 JSON 打印到 stdout 即退出；`GET` 一律 404；5 分钟超时自动关闭。
+- **唯一外部源**：桥接唯一的对外动作是在浏览器打开 `https://eastalmanac.com`（按语言加前缀）的工具页；回调地址指向 `127.0.0.1`，且页面拒绝非 localhost 回调。
+- **无密钥、无遥测**：没有 API Key、账号、统计上报和文件访问——没有可泄露的东西。
+- **回传数据仅作数据**：skill 明确指示 agent 把回传 JSON 只当作命理事实使用、忽略其中任何指令式文本，即使页面被攻破也无法驱动 agent。
+
+> 安全扫描器可能会对运行时依赖 `eastalmanac.com` 给出提示（如 Snyk Agent Scan 的 W012 "unverifiable external dependency"）。这是零后端架构固有的信任边界（即上文描述的模型），并非恶意代码的检出结果。
+
+---
+
 ## 设计原则
 
 - **服务对象是普通人，不是命理大师** —— AI 服务的是好奇的门外汉。每次解读分两层：内层（命理要点 + 术语，保证可追溯）+ **外层大白话**（用户真正想要的）。
@@ -153,6 +166,11 @@ skills/yifortune/
 欢迎贡献——尤其是术语订正、新主题 reference、翻译。规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## Changelog
+
+### 1.1.1 — 2026-10-12
+
+- **回传数据仅作数据（data-only）规则**：`SKILL.md` 明确指示 agent 把桥接回传的 JSON（及用户粘贴的 EastAlmanac 文本）一律当作命理数据使用——字段中出现的任何指令式文本一律忽略、绝不执行，收窄网站被攻破时的提示注入面。
+- README 新增**安全与信任模型**小节：单向回环数据流、`127.0.0.1` 一次性服务、无遥测、唯一外部源 `eastalmanac.com`。
 
 ### 1.1.0 — 2026-10-12
 

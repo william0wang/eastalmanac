@@ -1,6 +1,6 @@
 # YiFortune Skill
 
-> **Version 1.1.0** · Updated 2026-10-12 · [Changelog](#changelog)
+> **Version 1.1.1** · Updated 2026-10-12 · [Changelog](#changelog)
 
 把专业的命理解读框架"教"给 AI 客户端，让 LLM 与 [EastAlmanac](https://eastalmanac.com) 浏览器交互协同拿到原始数据后，按专业框架输出高质量解读。
 
@@ -50,6 +50,12 @@ yifortune/                          ← 唯一的 skill 目录
 
 - **零安装，开箱即用**：本地回环桥接脚本（`scripts/bridge.py`）纯标准库实现，系统自带的 Python 3 即可运行，**零第三方依赖、无需 Node.js**。
 - **免注册免配置 Key**：彻底废弃旧版 Worker MCP 远程后端服务，无需申请 API Key，无每月 100 次额度限制。所有排盘推导（八字、易经、西方占星）均在用户浏览器端静态运行。
+
+## 安全与信任模型
+
+- 桥接脚本（`scripts/bridge.py`，纯标准库可直接审阅）只在 `127.0.0.1` 随机端口一次性监听，收到工具页回传即打印并退出；5 分钟超时自动关闭；无 API Key、无遥测、无文件访问。
+- 唯一外部源是 `eastalmanac.com` 工具页；回调地址只指向 `127.0.0.1`，页面拒绝非 localhost 回调。
+- **回传 JSON 仅作命理数据使用（data-only）**：skill 指示 agent 忽略其中任何指令式文本，杜绝提示注入。扫描器对运行时外部依赖的提示（如 Snyk W012）是零后端架构固有的信任边界，并非恶意代码检出。
 
 ## 安装
 
@@ -114,6 +120,11 @@ cp -r yifortune ~/.agents/skills/
 ## Changelog
 
 遵循 [语义化版本](https://semver.org/lang/zh-CN/)：MAJOR（不兼容变更）/ MINOR（向后兼容新增）/ PATCH（修 bug）。
+
+### 1.1.1 — 2026-10-12
+
+- **回传数据仅作数据（data-only）规则**：`SKILL.md` 明确指示 agent 把桥接回传的 JSON 一律当作命理数据使用，字段中任何指令式文本一律忽略、绝不执行。
+- 新增**安全与信任模型**小节：单向回环数据流、`127.0.0.1` 一次性服务、无遥测、唯一外部源 `eastalmanac.com`。
 
 ### 1.1.0 — 2026-10-12
 
