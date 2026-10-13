@@ -180,6 +180,12 @@ skills/eastalmanac/
 
 ## Changelog
 
+### 2.1.0 — 2026-10-13
+
+- **新增五个桥接动作，skill 覆盖全部工具链**：`liuyao`（六笔铜钱摇卦→纳甲排盘）、`chengu`（袁天罡称骨算命）、`match`（两人八字合参，5 种关系类型）、`dates`（六大事项择日）、`naming`（语料库溯源起名，仅中文）。八个动作全部对线上环境完成回环 E2E 实测（en/zh 双语，79 条 payload 契约断言全过）。
+- **新增两篇 references**：`references/liuyao-chart.md`（六笔卦象→排盘→取用神→五步解读顺序）与 `references/chengu.md`（农历年界以正月初一、闰月基重、晚子时进日、金样四两四钱）。
+- **SKILL.md 触发词扩充**（六爻/纳甲/梅花易数/称骨/骨重等）；路由表新增六爻、称骨、配对、择日、姓名条目，compatibility / date-selection / name-analysis 三篇同步更新为对应命令用法。
+
 ### 2.0.0 — 2026-10-12
 
 - **BREAKING：skill 标识符由 `yifortune` 改名为 `eastalmanac`**——`SKILL.md` 的 `name`、`skills/eastalmanac/` 目录与所有命令/路径引用全链路统一为 EastAlmanac。已安装旧版本的用户请重新安装（`npx skills add william0wang/eastalmanac`）并删除旧的 `yifortune` skill 目录；对话触发词相应变为"用 eastalmanac skill"。

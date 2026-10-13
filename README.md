@@ -180,6 +180,12 @@ Contributions are welcome — especially corrections to terminology, new topic r
 
 ## Changelog
 
+### 2.1.0 — 2026-10-13
+
+- **Five new bridge actions — the skill now covers the full tool suite**: `liuyao` (six coin strokes → Liu Yao Najia board), `chengu` (Yuan Tiangang bone-weight fortune), `match` (two-person BaZi compatibility, 5 relationship types), `dates` (auspicious-date search for 6 life events), and `naming` (corpus-sourced name shortlist, zh-only). All eight actions were loopback-tested end-to-end against production across en/zh with 79 payload contract assertions.
+- **Two new references**: `references/liuyao-chart.md` (strokes → hexagram board → 用神 selection → five-step reading order) and `references/chengu.md` (lunar-year boundary at 正月初一, leap-month base weight, late-Zi hour roll, golden example 四两四钱).
+- **SKILL.md trigger vocabulary expanded** (六爻/纳甲/梅花易数/称骨/骨重 among others); the route table now dispatches 六爻, 称骨, 配对, 择日, and 姓名 questions to the new commands, and the compatibility / date-selection / name-analysis references were updated to match.
+
 ### 2.0.0 — 2026-10-12
 
 - **BREAKING: skill identifier renamed `yifortune` → `eastalmanac`** — the SKILL.md `name`, the `skills/eastalmanac/` directory, and every command/path reference now use the EastAlmanac name end to end. If you installed an earlier version, reinstall (`npx skills add william0wang/eastalmanac`) and delete the old `yifortune` skill folder; the trigger phrase becomes "use the eastalmanac skill".
