@@ -8,6 +8,14 @@ any preinstalled Python 3 — no pip dependencies.
 
 Usage:
     python3 scripts/bridge.py cast --question="所问之事"
+    python3 scripts/bridge.py liuyao --question="所问之事"
+    python3 scripts/bridge.py chengu --date="YYYY-MM-DD" --time="HH:MM" \
+        --calendar="solar|lunar" --question="关注领域"
+    python3 scripts/bridge.py match --dateA=... --timeA=... --genderA=... \
+        --dateB=... --timeB=... --genderB=... --rel="romance" --question="..."
+    python3 scripts/bridge.py dates --event=wedding --from=2027-01-01 \
+        --to=2027-03-31 --question="..."
+    python3 scripts/bridge.py naming [--surname=王 --gender=male] --question="..."
     python3 scripts/bridge.py chart --date="YYYY-MM-DD" --time="HH:MM" \
         --gender="male|female" --calendar="solar|lunar" --question="关注领域"
     python3 scripts/bridge.py bridge --date="YYYY-MM-DD" --time="HH:MM" \
@@ -44,12 +52,27 @@ LANGS = ("en", "zh", "zh-tw", "es", "pt", "de", "ja")
 # Per-action URL query whitelists; every action also carries q + callback.
 ACTIONS = {
     # I Ching casting — the user draws/casts interactively on the page.
+    # The cast page also hosts Meihua (体用) behind its method selector;
+    # the returned payload's input.method tells which reading came back.
     "cast": (),
+    # Six-line Najia chart — the user draws six strokes interactively.
+    "liuyao": (),
     # BaZi four pillars.
     "chart": ("date", "time", "gender", "calendar"),
+    # Chengu bone-weight reckoning (称骨).
+    "chengu": ("date", "time", "calendar"),
+    # Two-person BaZi synastry (match) — Partner A + Partner B.
+    "match": ("dateA", "timeA", "genderA", "calendarA", "dateB", "timeB", "genderB", "calendarB", "rel"),
+    # Auspicious date selection (dates) — event + window + optional birth year.
+    "dates": ("event", "from", "to", "birthYear"),
+    # Sourced naming (出典起名) — zh-only feature, lang is forced to zh.
+    "naming": ("surname", "gender"),
     # Western natal chart + BaZi side by side (astrology-bridge tool).
     "bridge": ("date", "time", "gender", "city", "lat", "lon", "tz"),
 }
+
+# Actions that only exist under Chinese locales — their lang is forced.
+ZH_ONLY_ACTIONS = {"naming"}
 
 received = threading.Event()
 timed_out = threading.Event()
@@ -138,6 +161,8 @@ def main():
     lang = params.get("lang", "").lower()
     if lang not in LANGS:
         lang = "en"
+    if action in ZH_ONLY_ACTIONS and lang not in ("zh", "zh-tw"):
+        lang = "zh"
     origin = SITE_ORIGIN if lang == "en" else "%s/%s" % (SITE_ORIGIN, lang)
     # cast/chart live under /tools/; the astrology bridge has its own section.
     path = "astrology-bridge/" if action == "bridge" else "tools/%s/" % action

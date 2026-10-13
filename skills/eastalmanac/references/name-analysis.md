@@ -9,6 +9,8 @@ Interactive — ask, don't guess:
 1. **The name**: exact Chinese characters of the full name (姓 + 名), including surname.
 2. **Birth data** (optional but recommended): for the BaZi-compatibility dimension. If provided, obtain the chart via `python3 scripts/bridge.py chart` to get the 用神/喜神 and day master.
 
+**Generating new names** (起名 rather than 测名): use the naming tool — `python3 scripts/bridge.py naming [--surname=王 --gender=male] --question="..."` — a classics-corpus name generator (Chinese-only page; `--lang` is forced to zh). This reference covers evaluating an existing name; the naming tool supplies sourced candidates you can then score with the five dimensions below.
+
 ## Analysis — Five Dimensions
 
 Each dimension produces a sub-score (1-10). The composite is the weighted average.

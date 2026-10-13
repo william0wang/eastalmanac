@@ -12,7 +12,7 @@ Multi-system compatibility analysis between **two people**. Collect info about b
 | MBTI                     | Both MBTI types                | Optional           |
 | 八字合婚 (BaZi synastry) | Both full birth times + gender | Optional (deepest) |
 
-For BaZi-level analysis, obtain chart data via `python3 scripts/bridge.py chart` for each person. For Western astrology synastry, compute each natal chart via `python3 scripts/bridge.py bridge` (see **astrology-chart** for the I/O contract) if birth time + place are available.
+For BaZi-level analysis, the match tool computes both charts and their synastry in one pass: `python3 scripts/bridge.py match --dateA="YYYY-MM-DD" --timeA="HH:MM" --genderA="male|female" --dateB=... --timeB=... --genderB=... [--rel=romance|boss-subordinate|business-partner|friend|family]` (`rel` defaults to `romance`). Alternatively obtain each chart via `python3 scripts/bridge.py chart`. For Western astrology synastry, compute each natal chart via `python3 scripts/bridge.py bridge` (see **astrology-chart** for the I/O contract) if birth time + place are available.
 
 ## Analysis — Layer by Layer
 
@@ -42,7 +42,7 @@ If both types known, note cognitive-function compatibility (e.g. ENFP-INTJ = com
 
 ### 5. 八字合婚 (BaZi Synastry — deepest, if both birth times available)
 
-Obtain chart data via `python3 scripts/bridge.py chart` for each person and compare:
+Obtain the synastry payload via `python3 scripts/bridge.py match ...` (or one `bridge.py chart` per person) and compare:
 
 **日主关系**: do the two day-master stems 生 (nurture), 合 (combine), or 克 (clash)? 相生 = warm support; 相合 = deep bond; 相克 = needs磨合.
 

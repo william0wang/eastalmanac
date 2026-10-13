@@ -1,11 +1,11 @@
 ---
 name: eastalmanac
-description: "Chinese fortune-telling and astrology assistant covering ALL EastAlmanac readings: 八字/命理/算命/四柱/命盘 (BaZi), 星盘/占星/星座 (Western astrology), 起卦/问事/占卦/易经 (I Ching divination), 事业/工作/职业 (career), 财运/投资/理财 (wealth), 感情/婚姻/恋爱/桃花 (love), 健康/养生/体质 (health), 成长/天赋/潜力 (personal growth), 配对/合婚/合适不合适 (compatibility), 今日/本周/本月/今年运势 (period fortune), 姓名/测名/改名 (name analysis), 择日/择吉/选日子 (date selection), 风水/方位/幸运颜色数字 (feng shui), 流年详批/年度运势 (annual reading). Route here for any fortune/destiny/astrology question. Topic-specific reading frameworks live as reference files loaded on demand."
+description: "Chinese fortune-telling and astrology assistant covering ALL EastAlmanac readings: 八字/命理/算命/四柱/命盘 (BaZi), 星盘/占星/星座 (Western astrology), 起卦/问事/占卦/易经 (I Ching divination), 六爻/纳甲/六爻排盘 (Liu Yao Najia), 梅花/梅花易数/体用 (Meihua), 称骨/称骨算命/袁天罡/骨重 (bone-weight), 事业/工作/职业 (career), 财运/投资/理财 (wealth), 感情/婚姻/恋爱/桃花 (love), 健康/养生/体质 (health), 成长/天赋/潜力 (personal growth), 配对/合婚/合适不合适 (compatibility), 今日/本周/本月/今年运势 (period fortune), 姓名/测名/改名 (name analysis), 择日/择吉/选日子 (date selection), 风水/方位/幸运颜色数字 (feng shui), 流年详批/年度运势 (annual reading). Route here for any fortune/destiny/astrology question. Topic-specific reading frameworks live as reference files loaded on demand."
 license: MIT
 compatibility: "Zero-install, zero dependencies: runs on any preinstalled Python 3 (the bridge is pure standard library). Every reading — BaZi, I Ching, and Western astrology — computes client-side in the browser."
 metadata:
-  version: "2.0.0"
-  last_updated: "2026-10-12"
+  version: "2.1.0"
+  last_updated: "2026-10-13"
   author: "william0wang"
   homepage: "https://github.com/william0wang/eastalmanac"
 ---
@@ -90,7 +90,12 @@ EastAlmanac operates via a zero-backend interactive architecture combining termi
 
 1. **Launch the Local Bridge**:
    When the user asks for a reading (BaZi chart, divination, Western astrology, or any specific topic), the Agent executes `python3 scripts/bridge.py` to open the relevant tool page in the user's default browser.
-   - For I Ching divination / casting: `python3 scripts/bridge.py cast --question="所问之事"`
+   - For I Ching divination / casting (the same page hosts Meihua 梅花体用 behind its method selector): `python3 scripts/bridge.py cast --question="所问之事"`
+   - For six-line Najia charts (六爻排盘): `python3 scripts/bridge.py liuyao --question="所问之事"`
+   - For bone-weight reckoning (称骨算命): `python3 scripts/bridge.py chengu --date="YYYY-MM-DD" --time="HH:MM" --calendar="solar|lunar"`
+   - For two-person synastry (合婚/配对): `python3 scripts/bridge.py match --dateA="YYYY-MM-DD" --timeA="HH:MM" --genderA="male|female" --dateB=... --timeB=... --genderB=... [--rel=romance|boss-subordinate|business-partner|friend|family]`
+   - For auspicious-date shortlists (择日): `python3 scripts/bridge.py dates --event=wedding --from=2027-01-01 --to=2027-03-31 [--birthYear=1990]`
+   - For classics-sourced name generation (出典起名, Chinese-only page): `python3 scripts/bridge.py naming [--surname=王 --gender=male] --question="..."`
    - For BaZi chart and life topics: `python3 scripts/bridge.py chart --date="YYYY-MM-DD" --time="HH:MM" --gender="male|female" --calendar="solar|lunar" --question="关注领域"`
    - For Western natal charts ( astrology-bridge computes the western chart AND the BaZi of the same moment): `python3 scripts/bridge.py bridge --date="YYYY-MM-DD" --time="HH:MM" --gender="male|female" --lat=39.9042 --lon=116.4074 --tz=8 --question="关注领域"`
    - Every action also accepts `--lang=en|zh|zh-tw|es|pt|de|ja` (default `en`): the page opens under that locale's URL prefix (`/zh/tools/chart/`…), so the prompt, hexagram names/essence, and the canonical links (`canonicalUrl`/`chartToolUrl`, locale-prefixed) come back in that language — pass the locale matching the user's conversation language. Calculation fields (pillars, hexagram numbers, western body/sign slugs) never localize.
@@ -112,16 +117,18 @@ Match the user's request to a topic, then load the corresponding `references/` f
 | 八字排盘 / 命盘总览 / 算命                | `references/bazi-chart.md`              | `python3 scripts/bridge.py chart --date=... --time=...`                      |
 | 星盘 / 占星 / 本命盘                      | `references/astrology-chart.md`         | `python3 scripts/bridge.py bridge --date=... --time=... --lat=... --lon=... --tz=...` |
 | 起卦 / 问事 / 占卦 / 决策                 | `references/yijing-cast.md`             | `python3 scripts/bridge.py cast --question="..."`                            |
+| 六爻 / 纳甲 / 六爻排盘 / 六亲六神         | `references/liuyao-chart.md`            | `python3 scripts/bridge.py liuyao --question="..."`                          |
+| 称骨 / 称骨算命 / 袁天罡 / 骨重           | `references/chengu.md`                  | `python3 scripts/bridge.py chengu --date=... --time=...`                     |
 | 事业 / 职业 / 工作 / 创业 / 跳槽          | `references/career.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 财运 / 赚钱 / 投资 / 理财                 | `references/wealth.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 感情 / 婚姻 / 恋爱 / 桃花 / 另一半        | `references/love.md`                    | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 健康 / 养生 / 体质 / 食疗 / 运动          | `references/health.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 成长 / 天赋 / 潜力 / 学习 / 瓶颈          | `references/growth.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
-| 配对 / 合婚 / 我们配不配                  | `references/compatibility.md`           | `python3 scripts/bridge.py chart` ×2                                         |
+| 配对 / 合婚 / 我们配不配                  | `references/compatibility.md`           | `python3 scripts/bridge.py match --dateA=... --dateB=... --rel=...`          |
 | 今日/本周/本月运势 / 状态 / 走势          | `references/period-fortune.md`          | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 流年详批 / 年度运势 / 逐月走势            | `references/annual-reading.md`          | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
-| 姓名 / 测名 / 改名 / 起名                 | `references/name-analysis.md`           | `python3 scripts/bridge.py chart` (optional)                                 |
-| 择日 / 择吉 / 选日子 / 搬家/结婚/开业吉日 | `references/date-selection.md`          | `python3 scripts/bridge.py chart` + `python3 scripts/bridge.py cast`            |
+| 姓名 / 测名 / 改名 / 起名                 | `references/name-analysis.md`           | `python3 scripts/bridge.py naming` (起名, zh-only) / `chart` (八字配合, optional) |
+| 择日 / 择吉 / 选日子 / 搬家/结婚/开业吉日 | `references/date-selection.md`          | `python3 scripts/bridge.py dates --event=... --from=... --to=...` + `cast` (I Ching verification) |
 | 风水 / 方位 / 幸运颜色数字 / 摆件         | `references/fengshui.md`                | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 
 **Language (`--lang`)**: append `--lang=en|zh|zh-tw|es|pt|de|ja` (default `en`) to any action above — the page, the prompt, hexagram names/essence, and the locale-prefixed canonical links follow that language; calculation fields don't. Pick the user's conversation language: 中文对话 → `--lang=zh`, 日本語 → `--lang=ja`, etc.

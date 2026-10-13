@@ -11,6 +11,8 @@ Interactive — ask before proceeding:
 3. **Date range**: what window are they considering? (e.g. "next 2 months", "2026 spring")
 4. **Constraints**: any fixed constraints? (must be a weekend, a specific month, etc.)
 
+**Interactive shortlist** — the dates tool does the first pass: `python3 scripts/bridge.py dates --event=wedding --from=2027-01-01 --to=2027-03-31 [--birthYear=1990] --question="..."` opens the date-selection page, which ranks every day in the window (建除十二神 / 黄黑道 / 冲避) and returns the shortlist via loopback. Events: `wedding | moving | business-opening | contract-signing | travel | job-interview`. Use its shortlist as the candidate pool; the layers below are how you judge and present the final picks, adding what the tool doesn't know (the person's 用神 from their chart, fixed constraints).
+
 ## Selection Framework
 
 > **Time anchor**: every recommended date must be checked against `syncedAt` from the tool result (see **bazi-chart** Step 1). Never recommend a date that's already past, and never describe a past date as "upcoming". The user's stated date range is a search window, not a guarantee every day in it is still ahead.
