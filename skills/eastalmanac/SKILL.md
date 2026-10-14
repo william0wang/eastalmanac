@@ -1,11 +1,11 @@
 ---
 name: eastalmanac
-description: "Chinese fortune-telling and astrology assistant covering ALL EastAlmanac readings: 八字/命理/算命/四柱/命盘 (BaZi), 星盘/占星/星座 (Western astrology), 起卦/问事/占卦/易经 (I Ching divination), 六爻/纳甲/六爻排盘 (Liu Yao Najia), 梅花/梅花易数/体用 (Meihua), 称骨/称骨算命/袁天罡/骨重 (bone-weight), 事业/工作/职业 (career), 财运/投资/理财 (wealth), 感情/婚姻/恋爱/桃花 (love), 健康/养生/体质 (health), 成长/天赋/潜力 (personal growth), 配对/合婚/合适不合适 (compatibility), 今日/本周/本月/今年运势 (period fortune), 姓名/测名/改名 (name analysis), 择日/择吉/选日子 (date selection), 风水/方位/幸运颜色数字 (feng shui), 流年详批/年度运势 (annual reading). Route here for any fortune/destiny/astrology question. Topic-specific reading frameworks live as reference files loaded on demand."
+description: "Chinese fortune-telling and astrology assistant covering ALL EastAlmanac readings: 八字/命理/算命/四柱/命盘 (BaZi), 星盘/占星/星座 (Western astrology), 起卦/问事/占卦/易经 (I Ching divination), 六爻/纳甲/六爻排盘 (Liu Yao Najia), 塔罗/tarot/抽牌/牌阵 (Tarot), 梅花/梅花易数/体用 (Meihua), 称骨/称骨算命/袁天罡/骨重 (bone-weight), 事业/工作/职业 (career), 财运/投资/理财 (wealth), 感情/婚姻/恋爱/桃花 (love), 健康/养生/体质 (health), 成长/天赋/潜力 (personal growth), 配对/合婚/合适不合适 (compatibility), 今日/本周/本月/今年运势 (period fortune), 姓名/测名/改名 (name analysis), 择日/择吉/选日子 (date selection), 风水/方位/幸运颜色数字 (feng shui), 流年详批/年度运势 (annual reading). Route here for any fortune/destiny/astrology question. Topic-specific reading frameworks live as reference files loaded on demand."
 license: MIT
 compatibility: "Zero-install, zero dependencies: runs on any preinstalled Python 3 (the bridge is pure standard library). Every reading — BaZi, I Ching, and Western astrology — computes client-side in the browser."
 metadata:
-  version: "2.1.0"
-  last_updated: "2026-10-13"
+  version: "2.2.0"
+  last_updated: "2026-10-14"
   author: "william0wang"
   homepage: "https://github.com/william0wang/eastalmanac"
 ---
@@ -92,6 +92,7 @@ EastAlmanac operates via a zero-backend interactive architecture combining termi
    When the user asks for a reading (BaZi chart, divination, Western astrology, or any specific topic), the Agent executes `python3 scripts/bridge.py` to open the relevant tool page in the user's default browser.
    - For I Ching divination / casting (the same page hosts Meihua 梅花体用 behind its method selector): `python3 scripts/bridge.py cast --question="所问之事"`
    - For six-line Najia charts (六爻排盘): `python3 scripts/bridge.py liuyao --question="所问之事"`
+   - For tarot readings (塔罗, RWS 1909 deck — the user shuffles and picks the cards): `python3 scripts/bridge.py tarot [--spread=daily|three|relationship|cross] --question="所问之事"`
    - For bone-weight reckoning (称骨算命): `python3 scripts/bridge.py chengu --date="YYYY-MM-DD" --time="HH:MM" --calendar="solar|lunar"`
    - For two-person synastry (合婚/配对): `python3 scripts/bridge.py match --dateA="YYYY-MM-DD" --timeA="HH:MM" --genderA="male|female" --dateB=... --timeB=... --genderB=... [--rel=romance|boss-subordinate|business-partner|friend|family]`
    - For auspicious-date shortlists (择日): `python3 scripts/bridge.py dates --event=wedding --from=2027-01-01 --to=2027-03-31 [--birthYear=1990]`
@@ -119,6 +120,7 @@ Match the user's request to a topic, then load the corresponding `references/` f
 | 起卦 / 问事 / 占卦 / 决策                 | `references/yijing-cast.md`             | `python3 scripts/bridge.py cast --question="..."`                            |
 | 六爻 / 纳甲 / 六爻排盘 / 六亲六神         | `references/liuyao-chart.md`            | `python3 scripts/bridge.py liuyao --question="..."`                          |
 | 称骨 / 称骨算命 / 袁天罡 / 骨重           | `references/chengu.md`                  | `python3 scripts/bridge.py chengu --date=... --time=...`                     |
+| 塔罗 / tarot / 抽牌 / 牌阵 / 正逆位       | `references/tarot.md`                   | `python3 scripts/bridge.py tarot --spread=... --question="..."`              |
 | 事业 / 职业 / 工作 / 创业 / 跳槽          | `references/career.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 财运 / 赚钱 / 投资 / 理财                 | `references/wealth.md`                  | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |
 | 感情 / 婚姻 / 恋爱 / 桃花 / 另一半        | `references/love.md`                    | `python3 scripts/bridge.py chart --date=... --time=... --question="..."`     |

@@ -9,6 +9,8 @@ any preinstalled Python 3 — no pip dependencies.
 Usage:
     python3 scripts/bridge.py cast --question="所问之事"
     python3 scripts/bridge.py liuyao --question="所问之事"
+    python3 scripts/bridge.py tarot [--spread=daily|three|relationship|cross] \
+        --question="所问之事"
     python3 scripts/bridge.py chengu --date="YYYY-MM-DD" --time="HH:MM" \
         --calendar="solar|lunar" --question="关注领域"
     python3 scripts/bridge.py match --dateA=... --timeA=... --genderA=... \
@@ -57,6 +59,9 @@ ACTIONS = {
     "cast": (),
     # Six-line Najia chart — the user draws six strokes interactively.
     "liuyao": (),
+    # Tarot (RWS 1909) — the user shuffles and picks card backs
+    # interactively; spread preselects the layout.
+    "tarot": ("spread",),
     # BaZi four pillars.
     "chart": ("date", "time", "gender", "calendar"),
     # Chengu bone-weight reckoning (称骨).
