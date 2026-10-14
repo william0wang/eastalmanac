@@ -4,7 +4,7 @@ description: "Chinese fortune-telling and astrology assistant covering ALL EastA
 license: MIT
 compatibility: "Zero-install, zero dependencies: runs on any preinstalled Python 3 (the bridge is pure standard library). Every reading — BaZi, I Ching, and Western astrology — computes client-side in the browser."
 metadata:
-  version: "2.2.1"
+  version: "2.3.0"
   last_updated: "2026-10-14"
   author: "william0wang"
   homepage: "https://github.com/william0wang/eastalmanac"

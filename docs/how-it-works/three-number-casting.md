@@ -3,7 +3,7 @@
 _Last verified: 2026-10_
 
 ## TL;DR
-In ancient divination, the consultation of the *I Ching* (Book of Changes, 易经) required forty-nine yarrow stalks or three tossed bronze coins to capture the synchronicity of the moment. EastAlmanac adapts this into a deterministic, computer-aided casting engine: the seeker provides **three numbers between 0 and 99**. The engine contains **zero random number generators (`Math.random()`) and zero system clock seeds**—the numbers must originate entirely from the seeker's conscious intention. Using 3-bit modulo arithmetic, the engine derives all six lines, detects changing lines (动爻), computes the transformed hexagram (之卦), and selects the authoritative judgment according to Master Zhu Xi's classical rules.
+In ancient divination, the consultation of the *I Ching* (Book of Changes, 易经) required forty-nine yarrow stalks or three tossed bronze coins to capture the synchronicity of the moment. EastAlmanac adapts this into a deterministic, computer-aided casting engine: the seeker **draws strokes on a canvas**, the engine folds the drawing into **three numbers between 0 and 99**, and blends the drawing moment into the coin bits. The engine contains **zero random number generators (`Math.random()`) and zero system clock seeds**—the numbers must originate entirely from the seeker's strokes and their moment. Using 3-bit modulo arithmetic, the engine derives all six lines, detects changing lines (动爻), computes the transformed hexagram (之卦), and selects the authoritative judgment according to Master Zhu Xi's classical rules.
 
 ---
 
@@ -16,7 +16,33 @@ Most divination websites use `Math.random()` to generate hexagrams behind the sc
 
 ---
 
-## 2. Deriving Six Lines via 3-Bit Modulo Arithmetic
+## 2. Where the Three Numbers Come From: Stroke Folding + the Moment Blend
+
+On the cast page the seeker draws strokes; the engine derives the three numbers in two pure steps:
+
+1. **Stroke folding** (`stroke.ts`): the sampled stroke geometry is folded by three independent FNV-style hash accumulators into three numbers, each 0–99. The hand shapes the numbers; there is no clock and no randomness.
+2. **Moment blend** (`coin-moment.ts`): at pointer-up the page passes the drawing moment (`momentMs`) as an explicit parameter, and the engine re-decides only the **three coin bits** — the low 3 bits of each number:
+
+```text
+coinBits    = (strokeNumber XOR hashMoment(momentMs, index)) AND 0b111
+blendedNumber = (strokeNumber AND ~0b111) OR coinBits
+```
+
+`hashMoment` is a deterministic 32-bit FNV-1a mix (seed `0x9e3779b9`) finalized with a Wang avalanche step. The semantics are the classical one: **the high bits keep the stroke (the hand shapes the cast); the low 3 bits are the three coins, and the moment decides which face each coin lands on.** Same stroke + same moment → the same cast forever; same stroke in another moment → different coins. This restores the original app's behavior, where every coin bit was reseeded from the moment — the moment is part of the 机锋.
+
+**Golden fixtures** (pinned; a 4-point stroke folds to `[20, 55, 21]`):
+
+| Input | Result |
+|---|---|
+| strokeNumber `[20, 55, 21]`, `momentMs = 0` | `[22, 54, 18]` |
+| same stroke, `momentMs = 1760000000000` | `[23, 50, 23]` |
+| same stroke, `momentMs = 1760000001000` | `[18, 50, 21]` |
+
+Note how only the low 3 bits move (20 = `0b10100` → 22 = `0b10110`; 55 = `0b110111` → 54 = `0b110110`) — the stroke stays in the number.
+
+---
+
+## 3. Deriving Six Lines via 3-Bit Modulo Arithmetic
 
 Each integer produces a pair of consecutive lines, mapping the three inputs into the six lines of the hexagram (from bottom 初爻 to top 上爻):
 - `firstNumber` yields **Line 0** (`intToYao(firstNumber)`) and **Line 1** (`intToYao(firstNumber + 1)`)
@@ -44,7 +70,7 @@ By evaluating the parity and Hamming weight of the 3-bit register, the algorithm
 
 ---
 
-## 3. Hexagram Structures: Ben Gua, Dong Yao, and Zhi Gua
+## 4. Hexagram Structures: Ben Gua, Dong Yao, and Zhi Gua
 
 1. **Original Hexagram (Ben Gua, 本卦)**:
    Formed by stacking the base polarity (bit 0) of the six lines from bottom (Line 0) to top (Line 5).
@@ -55,7 +81,7 @@ By evaluating the parity and Hamming weight of the 3-bit register, the algorithm
 
 ---
 
-## 4. Master Zhu Xi's Changing Line Judgment Rules
+## 5. Master Zhu Xi's Changing Line Judgment Rules
 
 When multiple lines change, which text governs the reading? EastAlmanac implements the authoritative hierarchical rules codified by Master Zhu Xi (朱熹) and Jiao Yanshou (焦延寿):
 
@@ -71,7 +97,7 @@ When multiple lines change, which text governs the reading? EastAlmanac implemen
 
 ---
 
-## 5. Worked Golden Examples
+## 6. Worked Golden Examples
 
 ### Example 1: Numbers `[7, 23, 41]`
 - `firstNumber = 7`:

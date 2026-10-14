@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.1-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.3.0-green.svg)](#changelog)
 
 **English** · **[简体中文](README.zh-CN.md)**
 
@@ -139,11 +139,18 @@ All calculation happens client-side on `eastalmanac.com`; the only local code is
 Unlike black-box divination and astrology platforms, EastAlmanac fully publishes and specifies its underlying calculation engines. Every scoring model, bitwise state machine, and astronomical coordinate transformation is documented as an open, reproducible specification:
 
 - **[How EastAlmanac Works (Index)](docs/how-it-works/README.md)** ([中文版](docs/how-it-works/README.zh-CN.md))
-- **[Three-Number I Ching Casting](docs/how-it-works/three-number-casting.md)** ([中文版](docs/how-it-works/three-number-casting.zh-CN.md)): 3-bit modulo arithmetic, Hamming parity state machine, and Master Zhu Xi's changing-line judgment rules.
+- **[Three-Number I Ching Casting](docs/how-it-works/three-number-casting.md)** ([中文版](docs/how-it-works/three-number-casting.zh-CN.md)): stroke folding + moment blend, 3-bit modulo arithmetic, Hamming parity state machine, and Master Zhu Xi's changing-line judgment rules.
 - **[BaZi Four Pillars Casting](docs/how-it-works/four-pillars.md)** ([中文版](docs/how-it-works/four-pillars.zh-CN.md)): Birthplace wall-clock authority, solar-term month boundaries, Sect 2 (子初换日) midnight rules, and decade fortunes.
 - **[Five-Element Strength Scoring](docs/how-it-works/strength-scoring.md)** ([中文版](docs/how-it-works/strength-scoring.zh-CN.md)): Transparent base stem/branch weight tables, seasonal prosperity multipliers (旺相休囚死), and 扶抑 balancing remedies.
 - **[Structural Dynamics & Interactions](docs/how-it-works/structural-attrs.md)** ([中文版](docs/how-it-works/structural-attrs.zh-CN.md)): *I Ching* line correctness (当位), centrality (得中), polar correspondence (应), and BaZi earthly branch harmonies, clashes, and punishments.
 - **[Western Tropical Natal Chart](docs/how-it-works/western-chart.md)** ([中文版](docs/how-it-works/western-chart.zh-CN.md)): Hellenistic Whole-Sign house system, four major Ptolemaic aspects, hierarchical orbs, and Swiss Ephemeris alignment (0.0″ ASC/MC match).
+- **[Liu Yao Najia Chart](docs/how-it-works/liuyao-najia.md)** ([中文版](docs/how-it-works/liuyao-najia.zh-CN.md)): Six strokes → mod-8 four images, Jing Fang's eight palaces, full Najia tables, six relations/spirits, 世应, hidden spirits.
+- **[Meihua Body-Use Analysis](docs/how-it-works/meihua-body-use.md)** ([中文版](docs/how-it-works/meihua-body-use.zh-CN.md)): One cast shared with the coin oracle; pinned body/use split and the five 体用总诀 verdicts.
+- **[Tarot Draw Engine](docs/how-it-works/tarot-draw.md)** ([中文版](docs/how-it-works/tarot-draw.zh-CN.md)): Seed = reveal moment + pick order; seeded Fisher-Yates fan, independent reversal stream, drift-proof `/r/` permalinks.
+- **[Chengu Bone-Weight](docs/how-it-works/chengu-bone-weight.md)** ([中文版](docs/how-it-works/chengu-bone-weight.zh-CN.md)): Four public-domain weight tables, 21–71 钱 verdict verses, three pinned conventions (lunar year boundary, leap month, late-Zi roll).
+- **[BaZi Synastry](docs/how-it-works/synastry.md)** ([中文版](docs/how-it-works/synastry.zh-CN.md)): Six public weights (30/25/15/15/10/5), four grade bands, role-symmetric presets, and the no-total payload contract.
+- **[Date Selection](docs/how-it-works/date-selection.md)** ([中文版](docs/how-it-works/date-selection.zh-CN.md)): The almanac reversed — additive weights over 宜忌 terms, 建除十二神, yellow/black path stars, personal 六冲 flag.
+- **[Sourced Naming](docs/how-it-works/naming-stroke.md)** ([中文版](docs/how-it-works/naming-stroke.zh-CN.md)): Retrieval not generation — BaZi favorable match as the sole ranking key, five-grid/sancai as disclosed reference, homophone flags that never filter.
 
 ---
 
@@ -179,6 +186,10 @@ Unlike black-box divination and astrology platforms, EastAlmanac fully publishes
 Contributions are welcome — especially corrections to terminology, new topic references, or translations. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Changelog
+
+### 2.3.0 — 2026-10-14
+
+- **How-It-Works Volume 2 — seven new bilingual algorithm specs** covering the new tool suite: Liu Yao Najia (eight palaces, Najia tables, six relations/spirits), Meihua body-use (the pinned 体用 split and five verdicts), the tarot draw engine (seeded Fisher-Yates, reversal streams, drift-proof permalinks), chengu bone-weight (four tables + 51 verses + three pinned conventions), BaZi synastry (six public weights, the no-total contract), date selection (additive weights over 宜忌/建除/黄黑道), and sourced naming (retrieval not generation, two never-blended layers). The casting spec gains the coin-moment blend section. Every golden fixture is pinned against the calc test suite.
 
 ### 2.2.1 — 2026-10-14
 

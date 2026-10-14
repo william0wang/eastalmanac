@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.2.1-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.3.0-green.svg)](#changelog)
 
 **[English](README.md)** · **简体中文**
 
@@ -144,6 +144,13 @@ skills/eastalmanac/
 - **[五行旺衰打分模型](docs/how-it-works/strength-scoring.zh-CN.md)** ([English](docs/how-it-works/strength-scoring.md))：透干与支藏干基准权重、月令旺相休囚死五级乘数、50% 生扶临界点与正统扶抑喜用神。
 - **[结构属性与作用规范](docs/how-it-works/structural-attrs.zh-CN.md)** ([English](docs/how-it-works/structural-attrs.md))：易经爻位当位/得中/中正/正应/乘承比与互卦；地支三合/六合/六冲/三刑/六害拓扑网络。
 - **[西方回归黄道本命盘规范](docs/how-it-works/western-chart.zh-CN.md)** ([English](docs/how-it-works/western-chart.md))：希腊化古典整宫制（Whole-Sign）、四大主要托勒密相位、分层容许度与瑞士星历表（Swiss Ephemeris）0.0″ 严密对齐。
+- **[六爻纳甲排盘引擎](docs/how-it-works/liuyao-najia.zh-CN.md)** ([English](docs/how-it-works/liuyao-najia.md))：六笔笔画 mod-8 四象、京房八宫生成序、纳甲干支全表、六亲六神、世应与伏神。
+- **[梅花易数体用分析](docs/how-it-works/meihua-body-use.zh-CN.md)** ([English](docs/how-it-works/meihua-body-use.md))：与铜钱卦共享同一卦象；钉死的体用划分与体用总诀五档判定。
+- **[塔罗抽牌引擎](docs/how-it-works/tarot-draw.zh-CN.md)** ([English](docs/how-it-works/tarot-draw.md))：种子 = 揭牌时刻 + 挑牌顺序；种子化洗牌、独立正逆位流、永不漂移的 `/r/` 永久链。
+- **[称骨算命引擎](docs/how-it-works/chengu-bone-weight.zh-CN.md)** ([English](docs/how-it-works/chengu-bone-weight.md))：四张公有领域骨重表、21–71 钱全量判词、三条钉死约定（农历年界/闰月/晚子时）。
+- **[八字合参引擎](docs/how-it-works/synastry.zh-CN.md)** ([English](docs/how-it-works/synastry.md))：六维公开权重（30/25/15/15/10/5）、四档评级、角色对称预设与「无总分」回传契约。
+- **[择日引擎](docs/how-it-works/date-selection.zh-CN.md)** ([English](docs/how-it-works/date-selection.md))：黄历反查——宜忌词条、建除十二神、黄黑道十二星的加法权重与本命六冲标记。
+- **[溯源起名引擎](docs/how-it-works/naming-stroke.zh-CN.md)** ([English](docs/how-it-works/naming-stroke.md))：检索而非生成——八字喜用匹配为唯一排序键、五格/三才作披露参考层、谐音只标记不剔除。
 
 ---
 
@@ -179,6 +186,10 @@ skills/eastalmanac/
 欢迎贡献——尤其是术语订正、新主题 reference、翻译。规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## Changelog
+
+### 2.3.0 — 2026-10-14
+
+- **How-It-Works 第二卷——七篇全新双语算法规范**，覆盖新工具链：六爻纳甲（八宫、纳甲全表、六亲六神）、梅花体用（钉死的体用划分与五档判定）、塔罗抽牌引擎（种子化洗牌、正逆位流、永不漂移永久链）、称骨（四表 + 51 判词 + 三条钉死约定）、八字合参（六维公开权重、「无总分」契约）、择日（宜忌/建除/黄黑道加法权重）、溯源起名（检索而非生成、两层永不混合）。三数起卦规范补入掷钱时刻混合一节；全部金样与计算包测试套件钉死对齐。
 
 ### 2.2.1 — 2026-10-14
 
