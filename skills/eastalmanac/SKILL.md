@@ -4,7 +4,7 @@ description: "Chinese fortune-telling and astrology assistant covering ALL EastA
 license: MIT
 compatibility: "Zero-install, zero dependencies: runs on any preinstalled Python 3 (the bridge is pure standard library). Every reading — BaZi, I Ching, and Western astrology — computes client-side in the browser."
 metadata:
-  version: "2.2.0"
+  version: "2.2.1"
   last_updated: "2026-10-14"
   author: "william0wang"
   homepage: "https://github.com/william0wang/eastalmanac"
@@ -118,6 +118,7 @@ Match the user's request to a topic, then load the corresponding `references/` f
 | 八字排盘 / 命盘总览 / 算命                | `references/bazi-chart.md`              | `python3 scripts/bridge.py chart --date=... --time=...`                      |
 | 星盘 / 占星 / 本命盘                      | `references/astrology-chart.md`         | `python3 scripts/bridge.py bridge --date=... --time=... --lat=... --lon=... --tz=...` |
 | 起卦 / 问事 / 占卦 / 决策                 | `references/yijing-cast.md`             | `python3 scripts/bridge.py cast --question="..."`                            |
+| 梅花 / 梅花易数 / 体用                    | `references/yijing-cast.md` (Meihua §)  | `python3 scripts/bridge.py cast --question="..."` (Meihua behind the cast page's method selector) |
 | 六爻 / 纳甲 / 六爻排盘 / 六亲六神         | `references/liuyao-chart.md`            | `python3 scripts/bridge.py liuyao --question="..."`                          |
 | 称骨 / 称骨算命 / 袁天罡 / 骨重           | `references/chengu.md`                  | `python3 scripts/bridge.py chengu --date=... --time=...`                     |
 | 塔罗 / tarot / 抽牌 / 牌阵 / 正逆位       | `references/tarot.md`                   | `python3 scripts/bridge.py tarot --spread=... --question="..."`              |

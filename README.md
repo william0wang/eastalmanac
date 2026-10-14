@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.2.1-green.svg)](#changelog)
 
 **English** · **[简体中文](README.zh-CN.md)**
 
@@ -179,6 +179,15 @@ Unlike black-box divination and astrology platforms, EastAlmanac fully publishes
 Contributions are welcome — especially corrections to terminology, new topic references, or translations. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Changelog
+
+### 2.2.1 — 2026-10-14
+
+- **Meihua reading framework**: `references/yijing-cast.md` gains a Meihua 体用 section — the 2.1.0 trigger vocabulary promised 梅花易数, and now `input.method === "meihua"` payloads have a full reading frame (the pinned 体/用 assignment, the five 体用总诀 relations, and the 用卦→互卦→变卦 ladder order). The SKILL.md route table carries 梅花 as its own row.
+- Docs bookkeeping: README badges and the skills-dir changelog synced with the 2.1.0/2.2.0 releases.
+
+### 2.2.0 — 2026-10-14
+
+- **Tarot action**: `tarot` bridge action with four spreads (`daily` / `three` / `relationship` / `cross`) opening the RWS 1909 deck page, plus `references/tarot.md` (78-card structure, upright/reversed states, reproducible `/r/` permalinks, per-spread reading frames); trigger vocabulary expanded (塔罗/tarot/抽牌/牌阵/正逆位).
 
 ### 2.1.0 — 2026-10-13
 

@@ -120,6 +120,47 @@ Cross-check the verdict words in the 卦辞/爻辞 you quote (元/亨/利/贞/�
 | 厉       | High alert — danger, but not hopeless    |
 | 凶       | Do not act, lay low                      |
 
+## Meihua 体用 — the sibling reading on the same page
+
+The cast page hosts a second method: **梅花易数 (Meihua)**. It shares the SAME strokes, moment, and numbers — the same hexagram — and differs only in the reading frame: instead of 爻辞, it reads the five-element interaction between the two trigrams (体用生克), per the classical 体用总诀.
+
+Launch identically (`python3 scripts/bridge.py cast --question="..." --lang=<locale>`) — the user picks 梅花易数 in the page's method selector (the coin oracle stays the default). Tell which reading came back by `input.method`: `"meihua"` → read the `tiYong` panel below; `"coin"` → the classical 爻辞 flow above.
+
+### The `tiYong` panel (present only when `input.method === "meihua"`)
+
+```json
+"tiYong": {
+  "ti": "离火",
+  "yong": "坎水",
+  "huGua": "既济",
+  "ladder": ["用卦坎:生体", "互卦上互·兑:体克", "互卦下互·离:比和", "变卦乾:比和", "变卦坤:生体"]
+}
+```
+
+| Field | Meaning |
+| ----- | ------- |
+| `ti` / `yong` | Body (体) and use (用) trigrams as `<trigram><element>` — e.g. "离火" is the Fire trigram Li. **`null` on a fully static cast**: no body/use split exists, and the hexagram judgment (卦辞) stays the whole reading, exactly as the coin method reads it. |
+| `huGua` | The nuclear hexagram 互卦 (lines 2–4 as lower, 3–5 as upper, 1-indexed) — the middle passage of the matter. |
+| `ladder` | The reading ladder in order: 用卦 → 互卦 (上互, 下互) → 变卦 (upper, lower), each as `frame·label:relation`. |
+
+### How the engine assigns 体 and 用 (pinned, deterministic)
+
+- **用 = the trigram containing the moving lines**; the quiet trigram is 体.
+- Both trigrams moving → the one with MORE moving lines is 用; a tie goes to the upper trigram.
+- A coin cast can move multiple lines — the classical Meihua time-cast never could — so the engine pins this ONE deterministic assignment instead of leaving it to judgment.
+
+### The five relations (体用总诀)
+
+| `ladder` relation | Verdict | Plain reading |
+| ----------------- | ------- | ------------- |
+| `生体` (use generates body) | 大吉 | The matter comes to feed you — best case |
+| `体克` (body overcomes use) | 小吉 | You control the matter — favorable, effort pays |
+| `比和` (same element) | 吉 | Smooth fit, low friction |
+| `体生` (body generates use) | 耗泄 | You are spending yourself into the matter — costly |
+| `克体` (use overcomes body) | 受制 | The matter pressures you — hardest case |
+
+Read the ladder by stage: **用卦 is the present situation, 互卦 the process, 变卦 the outcome direction.** Weigh 用卦 first, let the 变卦 entries tip the direction, use 互卦 to shade the middle passage. The output contract is unchanged: two layers (inner 体用要点 / outer plain conclusion) and the `result.canonicalUrl` link at the end.
+
 ## Output
 
 Two layers (see SKILL.md — the plain layer is mandatory):

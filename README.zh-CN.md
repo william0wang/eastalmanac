@@ -3,7 +3,7 @@
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-spec%20compliant-blue)](https://agentskills.io)
 [![skills.sh](https://skills.sh/b/william0wang/eastalmanac)](https://skills.sh/william0wang/eastalmanac)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-2.0.0-green.svg)](#changelog)
+[![Version](https://img.shields.io/badge/version-2.2.1-green.svg)](#changelog)
 
 **[English](README.md)** · **简体中文**
 
@@ -179,6 +179,15 @@ skills/eastalmanac/
 欢迎贡献——尤其是术语订正、新主题 reference、翻译。规则见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## Changelog
+
+### 2.2.1 — 2026-10-14
+
+- **梅花易数解读框架**：`references/yijing-cast.md` 新增梅花体用章节——2.1.0 的触发词已承诺梅花易数，现在 `input.method === "meihua"` 的回传 payload 有了完整断法框架（钉死的体/用划分、体用总诀五档判定、用卦→互卦→变卦的阶梯阅读顺序）；SKILL.md 路由表同步增加梅花条目。
+- **文档账务同步**：README 徽章与 skills 目录版 changelog 补齐 2.1.0/2.2.0 两个版本的记录。
+
+### 2.2.0 — 2026-10-14
+
+- **塔罗动作**：`tarot` 桥接动作支持四种牌阵（`daily` / `three` / `relationship` / `cross`），打开 RWS 1909 韦特牌页；新增 `references/tarot.md`（78 牌结构、正逆位、可复现 `/r/` 永久链、各牌阵解读框架）；触发词扩充（塔罗/tarot/抽牌/牌阵/正逆位）。
 
 ### 2.1.0 — 2026-10-13
 

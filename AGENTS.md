@@ -25,11 +25,16 @@ by compiling.
 
 ## bridge.py contract
 
-Three actions map to site paths: `cast` → `/tools/cast/`, `chart` →
-`/tools/chart/`, `bridge` (western astrology + BaZi) → `/astrology-bridge/`.
-Shared params: `q` (question) + `callback` (loopback URL; the page rejects
+Nine actions map to site paths — eight under `/tools/<action>/` (`cast`,
+`liuyao`, `tarot`, `chengu`, `match`, `dates`, `naming`, `chart`) plus
+`bridge` (western astrology + BaZi) at `/astrology-bridge/`. Shared
+params: `q` (question) + `callback` (loopback URL; the page rejects
 non-localhost callbacks). `--lang=en|zh|zh-tw|es|pt|de|ja` (default `en`,
-case-insensitive, unknown → `en`) prefixes the URL (`/zh/tools/chart/`).
+case-insensitive, unknown → `en`) prefixes the URL (`/zh/tools/chart/`);
+`naming` is zh-only and forces `lang=zh`. The cast page also hosts
+Meihua 梅花体用 behind its method selector — the payload's `input.method`
+(`coin` | `meihua`) says which reading came back; meihua adds a
+`result.tiYong` panel (ti/yong/huGua/ladder).
 
 The server must keep the Private Network Access headers
 (`Access-Control-Allow-Private-Network: true`) — Chrome/Edge block a public

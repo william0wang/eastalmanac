@@ -1,6 +1,6 @@
 # EastAlmanac Skill
 
-> **Version 1.1.1** · Updated 2026-10-12 · [Changelog](#changelog)
+> **Version 2.2.1** · Updated 2026-10-14 · [Changelog](#changelog)
 
 把专业的命理解读框架"教"给 AI 客户端，让 LLM 与 [EastAlmanac](https://eastalmanac.com) 浏览器交互协同拿到原始数据后，按专业框架输出高质量解读。
 
@@ -16,7 +16,10 @@ eastalmanac/                        ← 唯一的 skill 目录
 └── references/                     ← 各主题详细解读框架（按需加载，不占启动上下文）
     ├── bazi-chart.md               ← 八字排盘解读（日主/格局/十神/大运/刑冲合会）
     ├── astrology-chart.md          ← 占星排盘解读（三巨头/行星落宫/相位）
-    ├── yijing-cast.md              ← 易经起卦解读（本卦/动爻/变卦/贞悔亨厉）
+    ├── yijing-cast.md              ← 易经起卦解读（本卦/动爻/变卦/贞悔亨厉 + 梅花体用）
+    ├── liuyao-chart.md             ← 六爻纳甲排盘（卦宫/六亲/六神/世应/伏神）
+    ├── chengu.md                   ← 称骨算命（袁天罡骨重 + 批注诗）
+    ├── tarot.md                    ← 塔罗牌解读（RWS 1909 韦特牌/牌阵/正逆位）
     ├── glossary.md                 ← 术语字典 + 映射表（single source of truth）
     ├── mapping-tables.md           ← 扩展映射表（五行→行业/脏腑/颜色/数字…）
     ├── terms-detail.md             ← 术语深挖（纳音/胎元/五格剖象法/生肖全表…）
@@ -131,6 +134,21 @@ EastAlmanac 将底层核心计算模型、权重表与天文算法完全公开�
 ## Changelog
 
 遵循 [语义化版本](https://semver.org/lang/zh-CN/)：MAJOR（不兼容变更）/ MINOR（向后兼容新增）/ PATCH（修 bug）。
+
+### 2.2.1 — 2026-10-14
+
+- **梅花易数解读框架**：`references/yijing-cast.md` 新增梅花体用章节——2.1.0 的触发词已承诺梅花易数，现在 `input.method === "meihua"` 的回传 payload 有了完整断法框架（钉死的体/用划分、体用总诀五档判定、用卦→互卦→变卦的阶梯阅读顺序）；SKILL.md 路由表同步增加梅花条目。
+- **文档账务同步**：README 徽章与 skills 目录版 changelog 补齐 2.1.0/2.2.0 两个版本的记录。
+
+### 2.2.0 — 2026-10-14
+
+- **塔罗动作**：`tarot` 桥接动作支持四种牌阵（`daily` / `three` / `relationship` / `cross`），打开 RWS 1909 韦特牌页；新增 `references/tarot.md`（78 牌结构、正逆位、可复现 `/r/` 永久链、各牌阵解读框架）；触发词扩充（塔罗/tarot/抽牌/牌阵/正逆位）。
+
+### 2.1.0 — 2026-10-13
+
+- **新增五个桥接动作，skill 覆盖全部工具链**：`liuyao`（六笔铜钱摇卦→纳甲排盘）、`chengu`（袁天罡称骨算命）、`match`（两人八字合参，5 种关系类型）、`dates`（六大事项择日）、`naming`（语料库溯源起名，仅中文）。八个动作全部对线上环境完成回环 E2E 实测（en/zh 双语，79 条 payload 契约断言全过）。
+- **新增两篇 references**：`references/liuyao-chart.md`（六笔卦象→排盘→取用神→五步解读顺序）与 `references/chengu.md`（农历年界以正月初一、闰月基重、晚子时进日、金样四两四钱）。
+- **SKILL.md 触发词扩充**（六爻/纳甲/梅花易数/称骨/骨重等）；路由表新增六爻、称骨、配对、择日、姓名条目，compatibility / date-selection / name-analysis 三篇同步更新为对应命令用法。
 
 ### 2.0.0 — 2026-10-12
 
